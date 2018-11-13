@@ -10,7 +10,7 @@ import ShoppingCart from "./src/screens/ShoppingCart";
 const Navigator = createBottomTabNavigator(
   {
     Home,
-    Categories,
+    Categories: Categories,
     Search,
     ShoppingCart,
     Profile
