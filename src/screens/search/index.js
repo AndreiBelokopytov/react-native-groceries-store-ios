@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import SearchIcon from "../shared/icons/SearchIcon";
+import SearchIcon from "./components/SearchIcon";
 
 class Search extends Component {
   static navigationOptions = {

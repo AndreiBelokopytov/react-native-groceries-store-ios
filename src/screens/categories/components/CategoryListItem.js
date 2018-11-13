@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo";
-import pluralize from "../utils/pluralize";
-import StyledButton from "./StyledButton";
+import pluralize from "../../../utils/pluralize";
+import StyledButton from "../../../shared/StyledButton";
 
 const productsText = pluralize({
   "0": "нет продуктов",

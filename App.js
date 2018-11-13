@@ -1,11 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
 import colors from "./src/constants/colors";
-import Categories from "./src/screens/Categories";
-import Home from "./src/screens/Home";
-import Profile from "./src/screens/Profile";
-import Search from "./src/screens/Search";
-import ShoppingCart from "./src/screens/ShoppingCart";
+import Categories from "./src/screens/categories/index";
+import Home from "./src/screens/home/index";
+import Profile from "./src/screens/profile/index";
+import Search from "./src/screens/search/index";
+import ShoppingCart from "./src/screens/shoppingCart/index";
 
 const Navigator = createBottomTabNavigator(
   {

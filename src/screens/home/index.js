@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import HomeIcon from "../shared/icons/HomeIcon";
+import HomeIcon from "./components/HomeIcon";
 
 class Home extends Component {
   static navigationOptions = {

@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Svg } from "expo";
-import colors from "../../constants/colors";
-import tabBarIcon from "../TabBarIcon";
+import colors from "../../../constants/colors";
+import tabBarIcon from "../../../shared/TabBarIcon";
 
 class HomeIcon extends PureComponent {
   static defaultProps = {

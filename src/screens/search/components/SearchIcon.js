@@ -1,7 +1,7 @@
 import { Svg } from "expo";
 import React, { PureComponent } from "react";
-import colors from "../../constants/colors";
-import tabBarIcon from "../TabBarIcon";
+import colors from "../../../constants/colors";
+import tabBarIcon from "../../../shared/TabBarIcon";
 
 class SearchIcon extends PureComponent {
   static defaultProps = {

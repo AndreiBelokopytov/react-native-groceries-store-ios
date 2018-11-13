@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import ProfileIcon from "../shared/icons/ProfileIcon";
+import ProfileIcon from "./components/ProfileIcon";
 
 class Profile extends Component {
   static navigationOptions = {
@@ -10,7 +10,6 @@ class Profile extends Component {
   render() {
     return <View />;
   }
-  ß;
 }
 
 export default Profile;

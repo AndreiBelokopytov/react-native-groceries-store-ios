@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-navigation";
-import CategoryListItem from "../shared/CategoryListItem";
-import CategoryListSeparator from "../shared/CategoryListSeparator";
-import api from "../utils/api";
-import CategoriesIcon from "../shared/icons/CategoriesIcon";
+import CategoryListItem from "./components/CategoryListItem";
+import CategoryListSeparator from "./components/CategoryListSeparator";
+import CategoriesIcon from "./components/CategoriesIcon";
+import api from "../../utils/api";
 
 class Categories extends Component {
   static navigationOptions = {
