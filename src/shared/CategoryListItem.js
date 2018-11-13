@@ -1,7 +1,15 @@
 import React, { PureComponent } from "react";
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo";
+import pluralize from "../utils/pluralize";
 import StyledButton from "./StyledButton";
+
+const productsText = pluralize({
+  "0": "нет продуктов",
+  "1": "продукт",
+  "2-4": "продукта",
+  many: "продуктов"
+});
 
 class CategoryListItem extends PureComponent {
   render() {
@@ -19,7 +27,14 @@ class CategoryListItem extends PureComponent {
         />
         <View style={styles.container}>
           <Text style={styles.name}>{item.name}</Text>
-          <StyledButton text={item.products + " товаров"} touchable={false} />
+          <StyledButton
+            text={
+              item.products === 0
+                ? productsText(item.products)
+                : item.products + " " + productsText(item.products)
+            }
+            touchable={false}
+          />
         </View>
       </TouchableOpacity>
     );
