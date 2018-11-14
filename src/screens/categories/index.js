@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { View, FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import CategoryListItem from "./components/CategoryListItem";
 import CategoryListSeparator from "./components/CategoryListSeparator";
 import CategoriesIcon from "./components/CategoriesIcon";
-import api from "../../utils/api";
 
 class Categories extends Component {
   static navigationOptions = {
@@ -12,25 +12,12 @@ class Categories extends Component {
     tabBarIcon: CategoriesIcon
   };
 
-  state = {
-    categories: [],
-    total: 0
-  };
-
-  componentDidMount() {
-    api.getCategories().then(categories => {
-      this.setState({
-        ...categories
-      });
-    });
-  }
-
   render() {
     return (
       <SafeAreaView>
         <View style={styles.root}>
           <FlatList
-            data={this.state.categories}
+            data={this.props.categories}
             keyExtractor={this.categoryKeyExtractor}
             renderItem={this.renderListItem}
             ItemSeparatorComponent={CategoryListSeparator}
@@ -51,4 +38,17 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Categories;
+const mapStateToProps = state => {
+  return {
+    categories: state.catalog.categories
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Categories);

@@ -1,30 +1,19 @@
 import React from "react";
-import { createBottomTabNavigator } from "react-navigation";
-import colors from "./src/constants/colors";
-import Categories from "./src/screens/categories/index";
-import Home from "./src/screens/home/index";
-import Profile from "./src/screens/profile/index";
-import Search from "./src/screens/search/index";
-import ShoppingCart from "./src/screens/shoppingCart/index";
-
-const Navigator = createBottomTabNavigator(
-  {
-    Home,
-    Categories: Categories,
-    Search,
-    ShoppingCart,
-    Profile
-  },
-  {
-    tabBarOptions: {
-      activeTintColor: colors.primary,
-      inactiveTintColor: colors.textGray
-    }
-  }
-);
+import { Provider } from "react-redux";
+import Navigator from "./src/Navigator";
+import store from "./src/configureStore";
+import navigationService from "./src/utils/navigationService";
 
 export default class App extends React.Component {
   render() {
-    return <Navigator />;
+    return (
+      <Provider store={store}>
+        <Navigator
+          ref={navigationRef =>
+            navigationService.setTopLevelNavigator(navigationRef)
+          }
+        />
+      </Provider>
+    );
   }
 }
