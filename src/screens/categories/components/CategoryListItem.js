@@ -1,44 +1,31 @@
 import React, { PureComponent } from "react";
-import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo";
-import pluralize from "../../../utils/pluralize";
-import StyledButton from "../../../shared/StyledButton";
-
-const productsText = pluralize({
-  "0": "нет продуктов",
-  "1": "продукт",
-  "2-4": "продукта",
-  many: "продуктов"
-});
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import CategoryInfo from "../../../shared/CategoryInfo";
+import ImageGradient from "../../../shared/ImageGradient";
 
 class CategoryListItem extends PureComponent {
   render() {
-    const { item, onPress } = this.props;
+    const { item } = this.props;
     return (
       <TouchableOpacity
         style={styles.root}
         activeOpacity={0.4}
-        onPress={onPress}
+        onPress={this.onPress}
       >
         <Image source={{ uri: item.image }} style={styles.image} />
-        <LinearGradient
-          colors={["rgba(0, 0, 0, 0.3)", "rgba(0, 0, 0, 0.45)"]}
-          style={styles.overlay}
-        />
-        <View style={styles.container}>
-          <Text style={styles.name}>{item.name}</Text>
-          <StyledButton
-            text={
-              item.products === 0
-                ? productsText(item.products)
-                : item.products + " " + productsText(item.products)
-            }
-            touchable={false}
-          />
+        <View style={styles.overlay}>
+          <ImageGradient borderRadius={8} />
+        </View>
+        <View style={styles.infoWrapper}>
+          <View style={styles.info}>
+            <CategoryInfo name={item.name} products={item.products} />
+          </View>
         </View>
       </TouchableOpacity>
     );
   }
+
+  onPress = () => this.props.onPressItem(this.props.item.id);
 }
 
 const styles = StyleSheet.create({
@@ -51,38 +38,27 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 8
   },
-  container: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: "100%",
-    paddingLeft: 20,
-    paddingRight: 30,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  name: {
-    color: "#fff",
-    fontWeight: "600",
-    fontSize: 20,
-    letterSpacing: 0.0145,
-    textShadowOffset: {
-      width: 1,
-      height: 0
-    },
-    textShadowRadius: 2,
-    textShadowColor: "rgba(0, 0, 0, 0.16)"
-  },
   overlay: {
     position: "absolute",
     top: 0,
-    left: 0,
     right: 0,
-    height: "100%",
+    bottom: 0,
+    left: 0,
     borderRadius: 8
+  },
+  infoWrapper: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  },
+  info: {
+    paddingLeft: 20,
+    paddingRight: 30,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "stretch"
   }
 });
 
