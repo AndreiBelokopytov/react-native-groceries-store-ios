@@ -1,16 +1,10 @@
 import { Svg } from "expo";
 import React, { PureComponent } from "react";
-import colors from "../../../constants/colors";
-import tabBarIcon from "../../../shared/TabBarIcon";
 
 class CategoriesIcon extends PureComponent {
-  static defaultProps = {
-    fillColor: colors.icon
-  };
   render() {
-    const { fillColor } = this.props;
     return (
-      <Svg width={24} height={24} viewBox="0 0 24 24" fill={fillColor}>
+      <Svg viewBox="0 0 24 24" {...this.props}>
         <Svg.Path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -21,4 +15,4 @@ class CategoriesIcon extends PureComponent {
   }
 }
 
-export default tabBarIcon(CategoriesIcon);
+export default CategoriesIcon;

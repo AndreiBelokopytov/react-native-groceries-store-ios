@@ -1,16 +1,10 @@
 import React, { PureComponent } from "react";
 import { Svg } from "expo";
-import colors from "../../../constants/colors";
-import tabBarIcon from "../../../shared/TabBarIcon";
 
 class HomeIcon extends PureComponent {
-  static defaultProps = {
-    fillColor: colors.icon
-  };
   render() {
-    const { fillColor } = this.props;
     return (
-      <Svg width={24} height={24} viewBox="0 0 24 24" fill={fillColor}>
+      <Svg viewBox="0 0 24 24" {...this.props}>
         <Svg.Path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -21,4 +15,4 @@ class HomeIcon extends PureComponent {
   }
 }
 
-export default tabBarIcon(HomeIcon);
+export default HomeIcon;

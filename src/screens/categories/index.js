@@ -1,31 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-navigation";
+import tabBarIcon from "../../shared/TabBarIcon";
 import navigationService from "../../utils/navigationService";
 import CategoryListItem from "./components/CategoryListItem";
 import CategoryListSeparator from "./components/CategoryListSeparator";
-import CategoriesIcon from "./components/CategoriesIcon";
+import CategoriesIcon from "../../shared/icons/CategoriesIcon";
 
 class Categories extends Component {
   static navigationOptions = {
     header: null,
     title: "Категории",
-    tabBarIcon: CategoriesIcon,
+    tabBarIcon: tabBarIcon(CategoriesIcon),
     headerBackTitle: null
   };
 
   render() {
     return (
       <SafeAreaView style={styles.root}>
-        <View style={styles.container}>
-          <FlatList
-            data={this.props.categories}
-            keyExtractor={this.categoryKeyExtractor}
-            renderItem={this.renderListItem}
-            ItemSeparatorComponent={CategoryListSeparator}
-          />
-        </View>
+        <FlatList
+          style={styles.categories}
+          data={this.props.categories}
+          keyExtractor={this.categoryKeyExtractor}
+          renderItem={this.renderListItem}
+          ItemSeparatorComponent={CategoryListSeparator}
+        />
       </SafeAreaView>
     );
   }
@@ -47,8 +47,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff"
   },
-  container: {
-    padding: 20
+  categories: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20,
+    paddingBottom: 20
   }
 });
 
