@@ -24,6 +24,7 @@ const Catalog = createStackNavigator(
     Products
   },
   {
+    mode: "modal",
     initialRouteName: "Categories",
     headerMode: "screen",
     navigationOptions: {
