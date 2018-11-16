@@ -26,6 +26,9 @@ class Categories extends Component {
           keyExtractor={this.categoryKeyExtractor}
           renderItem={this.renderListItem}
           ItemSeparatorComponent={CategoryListSeparator}
+          contentContainerStyle={{
+            paddingVertical: 20
+          }}
         />
       </SafeAreaView>
     );
@@ -52,9 +55,7 @@ const styles = StyleSheet.create({
   },
   categories: {
     paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 20,
-    paddingBottom: 20
+    paddingRight: 20
   }
 });
 
