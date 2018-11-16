@@ -1,23 +1,31 @@
-import React, { Component } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import React, { PureComponent } from "react";
+import { Image, StyleSheet, Text, View, StatusBar } from "react-native";
 import CategoryInfo from "../../../shared/CategoryInfo";
 import ImageGradient from "../../../shared/ImageGradient";
 
-class ProductListHeader extends Component {
+class ProductListHeader extends PureComponent {
   render() {
-    const { image, name, products } = this.props;
+    const { category } = this.props;
     return (
       <View style={styles.root}>
-        <Image style={styles.image} source={{ uri: image }} />
-        <View style={styles.overlay}>
-          <ImageGradient />
-        </View>
-        <View style={styles.infoWrapper}>
-          <View style={styles.info}>
-            <Text style={styles.title}>Категория</Text>
-            <CategoryInfo name={name} products={products} />
-          </View>
-        </View>
+        <StatusBar barStyle="light-content" />
+        {category && (
+          <React.Fragment>
+            <Image style={styles.image} source={{ uri: category.image }} />
+            <View style={styles.overlay}>
+              <ImageGradient />
+            </View>
+            <View style={styles.infoWrapper}>
+              <View style={styles.info}>
+                <Text style={styles.title}>Категория</Text>
+                <CategoryInfo
+                  name={category.name}
+                  products={category.products}
+                />
+              </View>
+            </View>
+          </React.Fragment>
+        )}
       </View>
     );
   }
@@ -25,7 +33,8 @@ class ProductListHeader extends Component {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1
+    height: "100%",
+    width: "100%"
   },
   image: {
     width: "100%",
