@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-navigation";
+import { selectCategory } from "../../actions/catalogActions";
 import tabBarIcon from "../../shared/TabBarIcon";
 import navigationService from "../../utils/navigationService";
 import CategoryListItem from "./components/CategoryListItem";
@@ -36,10 +37,12 @@ class Categories extends Component {
     <CategoryListItem item={item} onPressItem={this.viewProductsInCategory} />
   );
 
-  viewProductsInCategory = id =>
+  viewProductsInCategory = id => {
     navigationService.navigate("Products", {
       category: id
     });
+    this.props.selectCategory(id);
+  };
 }
 
 const styles = StyleSheet.create({
@@ -62,7 +65,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    selectCategory: categoryId => dispatch(selectCategory(categoryId))
+  };
 };
 
 export default connect(
