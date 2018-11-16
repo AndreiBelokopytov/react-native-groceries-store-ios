@@ -1,4 +1,5 @@
 import { loop, Cmd } from "redux-loop";
+import { Map } from "immutable";
 import {
   CATALOG_LOAD_CATEGORIES,
   CATALOG_LOAD_CATEGORIES_FAIL,
@@ -13,6 +14,8 @@ import {
   loadProductsFail,
   loadProductsSuccess
 } from "../actions/catalogActions";
+import CategoryRecord from "../immutableTypes/CategoryRecord";
+import ProductRecord from "../immutableTypes/ProductRecord";
 import api from "../utils/api";
 
 const initialState = {
@@ -20,7 +23,7 @@ const initialState = {
   selectedCategory: null,
   isLoadingCategories: null,
   loadingCategoriesError: null,
-  products: [],
+  products: Map(),
   isLoadingProducts: null,
   loadingProductsError: null
 };
@@ -43,7 +46,9 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isLoadingCategories: false,
-        categories: action.payload.categories
+        categories: action.payload.categories.map(
+          item => new CategoryRecord(item)
+        )
       };
     case CATALOG_LOAD_CATEGORIES_FAIL:
       return {
@@ -57,10 +62,9 @@ export default function(state = initialState, action) {
       return loop(
         {
           ...state,
-          products: [],
           selectedCategory: category
         },
-        Cmd.action(loadProducts())
+        state.products.has(category) ? Cmd.none : Cmd.action(loadProducts())
       );
     }
     case CATALOG_LOAD_PRODUCTS: {
@@ -78,10 +82,16 @@ export default function(state = initialState, action) {
       );
     }
     case CATALOG_LOAD_PRODUCTS_SUCCESS: {
-      const { products } = action.payload;
+      const products = action.payload.products.map(item => ProductRecord(item));
+      const productsSet = state.products.set(state.selectedCategory, products);
+      // if (state.products.has(state.selectedCategory)) {
+      //   productsSet = state.products.set(state.selectedCategory, products);
+      // } else {
+      //   productsSet = state.products.add(state.selectedCategory, products);
+      // }
       return {
         ...state,
-        products,
+        products: productsSet,
         isLoadingProducts: false,
         loadingProductsError: null
       };

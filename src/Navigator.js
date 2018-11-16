@@ -4,6 +4,7 @@ import {
   createSwitchNavigator,
   createStackNavigator
 } from "react-navigation";
+import { useScreens } from "react-native-screens";
 import colors from "./constants/colors";
 import Categories from "./screens/categories/index";
 import Home from "./screens/home/index";
@@ -12,6 +13,8 @@ import Profile from "./screens/profile/index";
 import Search from "./screens/search/index";
 import ShoppingCart from "./screens/shoppingCart/index";
 import Loading from "./screens/loading/index";
+
+useScreens();
 
 const { title, tabBarIcon } = Categories.navigationOptions;
 
