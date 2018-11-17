@@ -2,9 +2,11 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { combineReducers, install as installReduxLoop } from "redux-loop";
 import { createLogger } from "redux-logger";
 import catalogReducer from "./reducers/catalogReducer";
+import profileReducer from "./reducers/profileReducer";
 
 const reducer = combineReducers({
-  catalog: catalogReducer
+  catalog: catalogReducer,
+  profile: profileReducer
 });
 
 const logger = createLogger({
