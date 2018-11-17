@@ -11,6 +11,7 @@ import CategoriesIcon from "../../shared/icons/CategoriesIcon";
 
 class Categories extends Component {
   static navigationOptions = {
+    header: null,
     title: "Категории",
     tabBarIcon: tabBarIcon(CategoriesIcon),
     headerBackTitle: null
