@@ -1,27 +1,31 @@
 import React, { PureComponent } from "react";
-import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, TouchableHighlight } from "react-native";
 import CategoryInfo from "../../../shared/CategoryInfo";
 import ImageGradient from "../../../shared/ImageGradient";
+
+const BORDER_RADIUS = 8;
 
 class CategoryListItem extends PureComponent {
   render() {
     const { item } = this.props;
     return (
-      <TouchableOpacity
+      <TouchableHighlight
         style={styles.root}
-        activeOpacity={0.4}
+        activeOpacity={0.6}
         onPress={this.onPress}
       >
-        <Image source={{ uri: item.image }} style={styles.image} />
-        <View style={styles.overlay}>
-          <ImageGradient borderRadius={8} />
-        </View>
-        <View style={styles.infoWrapper}>
-          <View style={styles.info}>
-            <CategoryInfo name={item.name} products={item.products} />
+        <View style={styles.container}>
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <View style={styles.overlay}>
+            <ImageGradient borderRadius={8} />
+          </View>
+          <View style={styles.infoWrapper}>
+            <View style={styles.info}>
+              <CategoryInfo name={item.name} products={item.products} />
+            </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableHighlight>
     );
   }
 
@@ -31,27 +35,29 @@ class CategoryListItem extends PureComponent {
 const styles = StyleSheet.create({
   root: {
     height: 113,
-    width: "100%"
+    width: "100%",
+    borderRadius: BORDER_RADIUS,
+    backgroundColor: "#000"
+  },
+  container: {
+    width: "100%",
+    height: "100%"
   },
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 8
+    borderRadius: BORDER_RADIUS
   },
   overlay: {
     position: "absolute",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    borderRadius: 8
+    width: "100%",
+    height: "100%",
+    borderRadius: BORDER_RADIUS
   },
   infoWrapper: {
     position: "absolute",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
+    width: "100%",
+    height: "100%"
   },
   info: {
     paddingLeft: 20,
