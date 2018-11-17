@@ -84,11 +84,6 @@ export default function(state = initialState, action) {
     case CATALOG_LOAD_PRODUCTS_SUCCESS: {
       const products = action.payload.products.map(item => ProductRecord(item));
       const productsSet = state.products.set(state.selectedCategory, products);
-      // if (state.products.has(state.selectedCategory)) {
-      //   productsSet = state.products.set(state.selectedCategory, products);
-      // } else {
-      //   productsSet = state.products.add(state.selectedCategory, products);
-      // }
       return {
         ...state,
         products: productsSet,
