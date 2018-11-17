@@ -13,18 +13,18 @@ import Profile from "./screens/profile/index";
 import Search from "./screens/search/index";
 import ShoppingCart from "./screens/shoppingCart/index";
 import Loading from "./screens/loading/index";
+import Filter from "./screens/filter/index";
 
 useScreens();
 
 const { title, tabBarIcon } = Categories.navigationOptions;
 
-const Catalog = createStackNavigator(
+const CatalogDetails = createStackNavigator(
   {
     Categories,
     Products
   },
   {
-    mode: "modal",
     initialRouteName: "Categories",
     headerMode: "screen",
     navigationOptions: {
@@ -32,6 +32,22 @@ const Catalog = createStackNavigator(
         marginLeft: 11
       }
     }
+  }
+);
+
+CatalogDetails.navigationOptions = {
+  header: null
+};
+
+const Catalog = createStackNavigator(
+  {
+    Details: CatalogDetails,
+    Filter
+  },
+  {
+    initialRouteName: "Details",
+    mode: "modal",
+    headerMode: "screen"
   }
 );
 

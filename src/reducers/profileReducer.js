@@ -1,7 +1,11 @@
 import { Set } from "immutable";
-import { PROFILE_BOOKMARK_PRODUCT } from "../actions/profileActions";
+import {
+  PROFILE_BOOKMARK_PRODUCT,
+  PROFILE_UPDATE_SORT_ORDER
+} from "../actions/profileActions";
 const initialState = {
-  bookmarkedProducts: Set()
+  bookmarkedProducts: Set(),
+  productsSortOrder: "default"
 };
 
 export default function(state = initialState, action) {
@@ -12,6 +16,11 @@ export default function(state = initialState, action) {
         bookmarkedProducts: state.bookmarkedProducts.add(
           action.payload.productId
         )
+      };
+    case PROFILE_UPDATE_SORT_ORDER:
+      return {
+        ...state,
+        productsSortOrder: action.payload.sortOrder
       };
     default:
       return state;
