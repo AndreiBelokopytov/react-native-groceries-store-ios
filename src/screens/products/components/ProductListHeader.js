@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Image, StyleSheet, Text, View, StatusBar } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import CategoryInfo from "../../../shared/CategoryInfo";
 import ImageGradient from "../../../shared/ImageGradient";
 
@@ -8,7 +8,6 @@ class ProductListHeader extends PureComponent {
     const { category } = this.props;
     return (
       <View style={styles.root}>
-        <StatusBar barStyle="light-content" />
         {category && (
           <React.Fragment>
             <Image style={styles.image} source={{ uri: category.image }} />

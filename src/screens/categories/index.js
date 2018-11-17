@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, InteractionManager } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { selectCategory } from "../../actions/catalogActions";
 import tabBarIcon from "../../shared/TabBarIcon";
@@ -11,7 +11,6 @@ import CategoriesIcon from "../../shared/icons/CategoriesIcon";
 
 class Categories extends Component {
   static navigationOptions = {
-    header: null,
     title: "Категории",
     tabBarIcon: tabBarIcon(CategoriesIcon),
     headerBackTitle: null
@@ -44,7 +43,9 @@ class Categories extends Component {
     navigationService.navigate("Products", {
       category: id
     });
-    this.props.selectCategory(id);
+    InteractionManager.runAfterInteractions(() => {
+      this.props.selectCategory(id);
+    });
   };
 }
 
