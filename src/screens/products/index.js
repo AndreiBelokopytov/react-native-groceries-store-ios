@@ -7,6 +7,7 @@ import {
   InteractionManager,
   StatusBar
 } from "react-native";
+import { bookmarkProduct } from "../../actions/profileActions";
 import SearchInput from "../../shared/SearchInput";
 import navigationService from "../../utils/navigationService";
 import ProductListHeader from "./components/ProductListHeader";
@@ -75,9 +76,17 @@ class Products extends Component {
 
   productKeyExtractor = item => item.id;
 
-  renderListItem = ({ item }) => (
-    <ProductListItem item={item} onSwipe={this.swipeScrollEvent} />
-  );
+  renderListItem = ({ item }) => {
+    const bookmarked = this.props.bookmarkedProducts.has(item.id);
+    return (
+      <ProductListItem
+        product={item}
+        onSwipe={this.swipeScrollEvent}
+        onBookmark={this.props.bookmark}
+        bookmarked={bookmarked}
+      />
+    );
+  };
 
   openFilter = () => navigationService.navigate("Filter");
 
@@ -116,12 +125,15 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     products: state.catalog.products.get(state.catalog.selectedCategory),
-    categories: state.catalog.categories
+    categories: state.catalog.categories,
+    bookmarkedProducts: state.profile.bookmarkedProducts
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    bookmark: productId => dispatch(bookmarkProduct(productId))
+  };
 };
 
 export default connect(

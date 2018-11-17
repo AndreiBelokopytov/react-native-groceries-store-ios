@@ -3,12 +3,13 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import Swipeout from "react-native-swipeout";
 import colors from "../../../constants/colors";
 import ClearButton from "../../../shared/ClearButton";
+import BookmarkIcon from "../../../shared/icons/BookmarkIcon";
 import SwipeActionButton from "../../../shared/SwipeActionButton";
 
 class ProductListItem extends PureComponent {
   right = [
     {
-      onPress: () => console.log("Added"),
+      onPress: () => this.props.onBookmark(this.props.product.id),
       component: <SwipeActionButton text="В избранное" />,
       buttonWidth: 120,
       backgroundColor: colors.primary
@@ -16,7 +17,7 @@ class ProductListItem extends PureComponent {
   ];
 
   render() {
-    const { item, onSwipe } = this.props;
+    const { product, bookmarked, onSwipe } = this.props;
     return (
       <Swipeout
         autoClose
@@ -27,21 +28,32 @@ class ProductListItem extends PureComponent {
         scroll={onSwipe}
       >
         <View style={styles.root}>
-          {item.images.length > 0 && (
-            <Image source={{ uri: item.images[0].url }} style={styles.image} />
+          {product.images.length > 0 && (
+            <Image
+              source={{ uri: product.images[0].url }}
+              style={styles.image}
+            />
           )}
           <View style={styles.description}>
             <View style={styles.descriptionWrapper}>
-              <Text style={styles.productName}>{item.name}</Text>
+              <Text style={styles.productName}>{product.name}</Text>
               <View style={styles.productPrice}>
-                {item.price < item.regular_price && (
-                  <Text style={styles.oldPrice}>{item.regular_price} ₽</Text>
+                {product.price < product.regular_price && (
+                  <Text style={styles.oldPrice}>{product.regular_price} ₽</Text>
                 )}
-                <Text style={styles.currentPrice}>{item.price} ₽</Text>
+                <Text style={styles.currentPrice}>{product.price} ₽</Text>
               </View>
             </View>
           </View>
-          <View style={styles.button}>
+          <View style={styles.right}>
+            {bookmarked && (
+              <BookmarkIcon
+                width={12}
+                height={12}
+                fill={colors.primary}
+                style={styles.bookmark}
+              />
+            )}
             <ClearButton text="Добавить" />
           </View>
         </View>
@@ -96,9 +108,13 @@ const styles = StyleSheet.create({
     textDecorationLine: "line-through",
     marginRight: 6
   },
-  button: {
-    justifyContent: "center",
+  right: {
+    flexDirection: "row",
+    alignItems: "center",
     marginLeft: 16
+  },
+  bookmark: {
+    marginRight: 8
   }
 });
 
