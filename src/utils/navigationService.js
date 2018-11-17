@@ -1,4 +1,8 @@
-import { NavigationActions, DrawerActions } from "react-navigation";
+import {
+  NavigationActions,
+  StackActions,
+  DrawerActions
+} from "react-navigation";
 
 let _navigator;
 
@@ -23,9 +27,19 @@ function goBack() {
   _navigator.dispatch(NavigationActions.back());
 }
 
+function pop() {
+  _navigator.dispatch(StackActions.pop());
+}
+
+function push(routeName, params) {
+  _navigator.dispatch(StackActions.push(routeName, params));
+}
+
 export default {
   setTopLevelNavigator,
   navigate,
   goBack,
-  openDrawer
+  openDrawer,
+  pop,
+  push
 };
