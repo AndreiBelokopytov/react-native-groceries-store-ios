@@ -67,11 +67,6 @@ class Filter extends Component {
             />
           </View>
         </View>
-        <View style={styles.price}>
-          <Title>
-            <Text>Цена</Text>
-          </Title>
-        </View>
       </View>
     );
   }
@@ -88,9 +83,6 @@ const styles = StyleSheet.create({
   },
   sortOrderPicker: {
     marginTop: 20
-  },
-  price: {
-    marginTop: 36
   }
 });
 
