@@ -7,22 +7,13 @@ import BookmarkIcon from "../../../shared/icons/BookmarkIcon";
 import SwipeActionButton from "../../../shared/SwipeActionButton";
 
 class ProductListItem extends PureComponent {
-  right = [
-    {
-      onPress: () => this.props.onBookmark(this.props.product.id),
-      component: <SwipeActionButton text="В избранное" />,
-      buttonWidth: 120,
-      backgroundColor: colors.primary
-    }
-  ];
-
   render() {
-    const { product, bookmarked, onSwipe } = this.props;
+    const { product, inFavorites, onSwipe } = this.props;
     return (
       <Swipeout
         autoClose
         backgroundColor="transparent"
-        right={this.right}
+        right={this.getSwipeButtons()}
         buttonWidth={120}
         sensitivity={30}
         scroll={onSwipe}
@@ -46,7 +37,7 @@ class ProductListItem extends PureComponent {
             </View>
           </View>
           <View style={styles.right}>
-            {bookmarked && (
+            {inFavorites && (
               <BookmarkIcon
                 width={12}
                 height={12}
@@ -60,6 +51,31 @@ class ProductListItem extends PureComponent {
       </Swipeout>
     );
   }
+
+  getSwipeButtons = () => {
+    const {
+      inFavorites,
+      product,
+      addToFavorites,
+      removeFromFavorites
+    } = this.props;
+
+    const bookmarkBtn = inFavorites
+      ? {
+          onPress: () => removeFromFavorites(product.id),
+          component: <SwipeActionButton text="Удалить из избранного" />,
+          buttonWidth: 120,
+          backgroundColor: colors.primary
+        }
+      : {
+          onPress: () => addToFavorites(product.id),
+          component: <SwipeActionButton text="В избранное" />,
+          buttonWidth: 120,
+          backgroundColor: colors.primary
+        };
+
+    return [bookmarkBtn];
+  };
 }
 
 const styles = StyleSheet.create({

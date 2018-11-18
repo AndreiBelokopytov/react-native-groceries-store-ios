@@ -8,7 +8,10 @@ import {
   StatusBar,
   ActivityIndicator
 } from "react-native";
-import { bookmarkProduct } from "../../actions/profileActions";
+import {
+  addToFavorites,
+  removeFromFavorites
+} from "../../actions/profileActions";
 import colors from "../../constants/colors";
 import SearchInput from "../../shared/SearchInput";
 import navigationService from "../../utils/navigationService";
@@ -83,13 +86,16 @@ class Products extends Component {
   productKeyExtractor = item => item.id;
 
   renderListItem = ({ item }) => {
-    const bookmarked = this.props.bookmarkedProducts.has(item.id);
+    const { favorites, addToFavorites, removeFromFavorites } = this.props;
+
+    const inFavorites = favorites.has(item.id);
     return (
       <ProductListItem
         product={item}
         onSwipe={this.swipeScrollEvent}
-        onBookmark={this.props.bookmark}
-        bookmarked={bookmarked}
+        inFavorites={inFavorites}
+        addToFavorites={addToFavorites}
+        removeFromFavorites={removeFromFavorites}
       />
     );
   };
@@ -137,13 +143,14 @@ const mapStateToProps = state => {
   return {
     products: state.catalog.products.get(state.catalog.selectedCategory),
     categories: state.catalog.categories,
-    bookmarkedProducts: state.profile.bookmarkedProducts
+    favorites: state.profile.favorites
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    bookmark: productId => dispatch(bookmarkProduct(productId))
+    addToFavorites: productId => dispatch(addToFavorites(productId)),
+    removeFromFavorites: productId => dispatch(removeFromFavorites(productId))
   };
 };
 
