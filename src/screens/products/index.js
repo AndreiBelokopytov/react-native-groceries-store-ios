@@ -5,9 +5,11 @@ import {
   StyleSheet,
   FlatList,
   InteractionManager,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from "react-native";
 import { bookmarkProduct } from "../../actions/profileActions";
+import colors from "../../constants/colors";
 import SearchInput from "../../shared/SearchInput";
 import navigationService from "../../utils/navigationService";
 import ProductListHeader from "./components/ProductListHeader";
@@ -58,7 +60,7 @@ class Products extends Component {
         <View style={styles.filter}>
           <SearchInput placeholder="Поиск" onOpenFilter={this.openFilter} />
         </View>
-        {interactionEnded && (
+        {interactionEnded ? (
           <FlatList
             style={styles.products}
             data={products}
@@ -69,6 +71,10 @@ class Products extends Component {
               paddingBottom: 20
             }}
           />
+        ) : (
+          <View style={styles.loading}>
+            <ActivityIndicator size="large" color={colors.icon} />
+          </View>
         )}
       </View>
     );
@@ -119,6 +125,11 @@ const styles = StyleSheet.create({
   },
   products: {
     flex: 1
+  },
+  loading: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
