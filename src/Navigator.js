@@ -2,7 +2,8 @@ import React from "react";
 import {
   createBottomTabNavigator,
   createSwitchNavigator,
-  createStackNavigator
+  createStackNavigator,
+  createAppContainer
 } from "react-navigation";
 import { useScreens } from "react-native-screens";
 import colors from "./constants/colors";
@@ -27,7 +28,7 @@ const CatalogDetails = createStackNavigator(
   {
     initialRouteName: "Categories",
     headerMode: "screen",
-    navigationOptions: {
+    defaultNavigationOptions: {
       headerLeftContainerStyle: {
         marginLeft: 11
       }
@@ -72,7 +73,7 @@ const Tabs = createBottomTabNavigator(
   }
 );
 
-export default createSwitchNavigator(
+const App = createSwitchNavigator(
   {
     Loading,
     Tabs
@@ -81,3 +82,5 @@ export default createSwitchNavigator(
     initialRouteName: "Loading"
   }
 );
+
+export default createAppContainer(App);
