@@ -27,8 +27,8 @@ const CatalogDetails = createStackNavigator(
   },
   {
     initialRouteName: "Categories",
-    headerMode: "screen",
     defaultNavigationOptions: {
+      header: null,
       headerLeftContainerStyle: {
         marginLeft: 11
       }

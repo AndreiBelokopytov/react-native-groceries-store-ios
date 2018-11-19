@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingTop: 10,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
+    backgroundColor: "#fff"
   },
   image: {
     width: 62,

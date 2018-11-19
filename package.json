@@ -9,9 +9,11 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/vector-icons": "^8.0.0",
     "api-ecommerce": "^0.0.16",
     "expo": "^31.0.2",
     "immutable": "^4.0.0-rc.12",
+    "native-base": "^2.8.1",
     "querystring": "^0.2.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
