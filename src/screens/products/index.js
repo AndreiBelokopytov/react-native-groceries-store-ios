@@ -19,6 +19,7 @@ import {
   IPHONE_HEADER_HEIGHT,
   IPHONE_STATUS_BAR_HEIGHT
 } from "../../utils/statusBarDimensions";
+import AddToCartModal from "./components/AddToCartModal";
 import ProductListHeader from "./components/ProductListHeader";
 import ProductListImageBg from "./components/ProductListImageBg";
 import ProductListItem from "./components/ProductListItem";
@@ -38,7 +39,9 @@ class Products extends Component {
     showTransparentNav: true,
     category: null,
     interactionEnded: false,
-    allowVerticalScroll: false
+    allowVerticalScroll: false,
+    selectedProduct: null,
+    showAddToProductDialog: null
   };
 
   getContentTitleOpacity = () =>
@@ -109,7 +112,9 @@ class Products extends Component {
       category,
       allowVerticalScroll,
       interactionEnded,
-      showTransparentNav
+      showTransparentNav,
+      selectedProduct,
+      showAddToProductDialog
     } = this.state;
     return (
       <View style={styles.root}>
@@ -180,6 +185,11 @@ class Products extends Component {
             </View>
           )}
         </View>
+        <AddToCartModal
+          visible={showAddToProductDialog}
+          product={selectedProduct}
+          onClose={this.closeAddToCartDialog}
+        />
       </View>
     );
   }
@@ -197,6 +207,7 @@ class Products extends Component {
         inFavorites={inFavorites}
         addToFavorites={addToFavorites}
         removeFromFavorites={removeFromFavorites}
+        addToCart={this.addProductToCart}
       />
     );
   };
@@ -205,6 +216,19 @@ class Products extends Component {
     if (this.state.allowVerticalScroll !== allowParentScroll) {
       this.setState({ allowVerticalScroll: allowParentScroll });
     }
+  };
+
+  addProductToCart = product => {
+    this.setState({
+      selectedProduct: product,
+      showAddToProductDialog: true
+    });
+  };
+
+  closeAddToCartDialog = () => {
+    this.setState({
+      showAddToProductDialog: false
+    });
   };
 }
 

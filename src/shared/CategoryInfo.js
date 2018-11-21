@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import pluralize from "../utils/pluralize";
 import StyledButton from "./StyledButton";
 
-this.productsText = pluralize({
+const productsText = pluralize({
   "0": "нет продуктов",
   "1": "продукт",
   "2-4": "продукта",
@@ -17,14 +17,13 @@ class CategoryInfo extends PureComponent {
     return (
       <View style={styles.root}>
         <Text style={styles.name}>{name}</Text>
-        <StyledButton
-          text={
-            products === 0
+        <StyledButton touchable={false}>
+          <Text>
+            {products === 0
               ? productsText(products)
-              : products + " " + productsText(products)
-          }
-          touchable={false}
-        />
+              : products + " " + productsText(products)}
+          </Text>
+        </StyledButton>
       </View>
     );
   }

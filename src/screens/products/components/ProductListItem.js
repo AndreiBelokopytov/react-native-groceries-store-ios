@@ -45,12 +45,14 @@ class ProductListItem extends PureComponent {
                 style={styles.bookmark}
               />
             )}
-            <ClearButton text="Добавить" />
+            <ClearButton text="Добавить" onPress={this.addToCart} />
           </View>
         </View>
       </Swipeout>
     );
   }
+
+  addToCart = () => this.props.addToCart(this.props.product);
 
   getSwipeButtons = () => {
     const {
