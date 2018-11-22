@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import {
   addToFavorites,
+  addToShoppingCart,
   removeFromFavorites
 } from "../../actions/profileActions";
 import colors from "../../constants/colors";
@@ -39,9 +40,7 @@ class Products extends Component {
     showTransparentNav: true,
     category: null,
     interactionEnded: false,
-    allowVerticalScroll: false,
-    selectedProduct: null,
-    showAddToProductDialog: null
+    allowVerticalScroll: false
   };
 
   getContentTitleOpacity = () =>
@@ -112,9 +111,7 @@ class Products extends Component {
       category,
       allowVerticalScroll,
       interactionEnded,
-      showTransparentNav,
-      selectedProduct,
-      showAddToProductDialog
+      showTransparentNav
     } = this.state;
     return (
       <View style={styles.root}>
@@ -169,7 +166,7 @@ class Products extends Component {
               renderItem={this.renderListItem}
               scrollEnabled={allowVerticalScroll}
               contentContainerStyle={{
-                paddingTop: IMAGE_HEADER_HEIGHT - HEADER_HEIGHT + 16,
+                paddingTop: IMAGE_HEADER_HEIGHT - HEADER_HEIGHT + 6,
                 paddingBottom: 16
               }}
               onScroll={Animated.event(
@@ -178,6 +175,7 @@ class Products extends Component {
                   userNativeDriver: true
                 }
               )}
+              ItemSeparatorComponent={ProductItemSeparator}
             />
           ) : (
             <View style={styles.loading}>
@@ -218,17 +216,10 @@ class Products extends Component {
     }
   };
 
-  addProductToCart = product => {
-    this.setState({
-      selectedProduct: product,
-      showAddToProductDialog: true
-    });
-  };
-
-  closeAddToCartDialog = () => {
-    this.setState({
-      showAddToProductDialog: false
-    });
+  addProductToCart = productId => {
+    const { addToCart } = this.props;
+    const { category } = this.state;
+    addToCart(productId, category.id, 1);
   };
 }
 
@@ -274,7 +265,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addToFavorites: productId => dispatch(addToFavorites(productId)),
-    removeFromFavorites: productId => dispatch(removeFromFavorites(productId))
+    removeFromFavorites: productId => dispatch(removeFromFavorites(productId)),
+    addToCart: (productId, categoryId, count) =>
+      dispatch(addToShoppingCart(productId, categoryId, count))
   };
 };
 

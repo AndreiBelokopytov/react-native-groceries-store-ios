@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FlatList, StyleSheet, InteractionManager } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { selectCategory } from "../../actions/catalogActions";
-import tabBarIcon from "../../shared/TabBarIcon";
+import tabBarIcon from "../../shared/tabBarIcon";
 import navigationService from "../../utils/navigationService";
 import CategoryListItem from "./components/CategoryListItem";
 import CategoryListSeparator from "./components/CategoryListSeparator";

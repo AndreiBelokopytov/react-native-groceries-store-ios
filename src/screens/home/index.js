@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import HomeIcon from "../../shared/icons/HomeIcon";
-import tabBarIcon from "../../shared/TabBarIcon";
+import tabBarIcon from "../../shared/tabBarIcon";
 
 class Home extends Component {
   static navigationOptions = {

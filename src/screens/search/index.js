@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import SearchIcon from "../../shared/icons/SearchIcon";
-import tabBarIcon from "../../shared/TabBarIcon";
+import tabBarIcon from "../../shared/tabBarIcon";
 
 class Search extends Component {
   static navigationOptions = {

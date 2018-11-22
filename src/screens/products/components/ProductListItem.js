@@ -52,7 +52,7 @@ class ProductListItem extends PureComponent {
     );
   }
 
-  addToCart = () => this.props.addToCart(this.props.product);
+  addToCart = () => this.props.addToCart(this.props.product.id);
 
   getSwipeButtons = () => {
     const {
@@ -85,9 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "stretch",
-    borderBottomColor: "#BCBBC1",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    paddingBottom: 8,
     paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
