@@ -20,7 +20,7 @@ import {
   IPHONE_HEADER_HEIGHT,
   IPHONE_STATUS_BAR_HEIGHT
 } from "../../utils/statusBarDimensions";
-import AddToCartModal from "./components/AddToCartModal";
+import ProductItemSeparator from "./components/ProductItemSeparator";
 import ProductListHeader from "./components/ProductListHeader";
 import ProductListImageBg from "./components/ProductListImageBg";
 import ProductListItem from "./components/ProductListItem";
@@ -183,11 +183,6 @@ class Products extends Component {
             </View>
           )}
         </View>
-        <AddToCartModal
-          visible={showAddToProductDialog}
-          product={selectedProduct}
-          onClose={this.closeAddToCartDialog}
-        />
       </View>
     );
   }

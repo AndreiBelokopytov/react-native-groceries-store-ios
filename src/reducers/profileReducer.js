@@ -1,12 +1,16 @@
-import { Set } from "immutable";
+import { Set, Map } from "immutable";
 import {
   PROFILE_ADD_TO_FAVORITES,
+  PROFILE_ADD_TO_SHOPPING_CART,
   PROFILE_REMOVE_FROM_FAVORITES,
+  PROFILE_REMOVE_FROM_SHOPPING_CART,
   PROFILE_UPDATE_SORT_ORDER
 } from "../actions/profileActions";
 const initialState = {
   favorites: Set(),
-  productsSortOrder: "default"
+  productsSortOrder: "default",
+  shoppingCart: Map(),
+  discount: 0
 };
 
 export default function(state = initialState, action) {
@@ -26,6 +30,34 @@ export default function(state = initialState, action) {
         ...state,
         productsSortOrder: action.payload.sortOrder
       };
+    case PROFILE_ADD_TO_SHOPPING_CART: {
+      const { productId, categoryId, count } = action.payload;
+      let updatedCart;
+      const productInCart = state.shoppingCart.get(productId);
+      if (productInCart) {
+        updatedCart = state.shoppingCart.set(productId, {
+          categoryId,
+          count: count + productInCart.count
+        });
+      } else {
+        updatedCart = state.shoppingCart.set(productId, {
+          categoryId,
+          count
+        });
+      }
+      return {
+        ...state,
+        shoppingCart: updatedCart
+      };
+    }
+    case PROFILE_REMOVE_FROM_SHOPPING_CART: {
+      const { productId } = action.payload;
+      return {
+        ...state,
+        shoppingCart: state.shoppingCart.remove(productId)
+      };
+    }
+
     default:
       return state;
   }

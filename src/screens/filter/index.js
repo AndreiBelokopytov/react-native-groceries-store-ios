@@ -56,7 +56,7 @@ class Filter extends Component {
     return (
       <View style={styles.root}>
         <View style={styles.sortOrder}>
-          <Title>
+          <Title variant="h2">
             <Text>Порядок результатов</Text>
           </Title>
           <View style={styles.sortOrderPicker}>
