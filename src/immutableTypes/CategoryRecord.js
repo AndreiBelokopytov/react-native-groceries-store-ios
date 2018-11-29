@@ -3,7 +3,8 @@ import { Record } from "immutable";
 const CategoryRecord = Record({
   id: "",
   name: "",
-  image: "",
+  image_small: "",
+  image_medium: "",
   products: 0
 });
 

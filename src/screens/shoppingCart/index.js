@@ -24,6 +24,7 @@ class ShoppingCart extends Component {
     title: "Корзина",
     tabBarIcon: TabBarIcon
   };
+
   render() {
     const { products } = this.props;
     return (

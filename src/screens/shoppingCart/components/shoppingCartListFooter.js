@@ -14,11 +14,11 @@ class ShoppingCartListFooter extends PureComponent {
       <View style={styles.root}>
         <View style={styles.orderPrice}>
           <View style={styles.subitem}>
-            <Label text="Подытог" />
+            <Label note text="Подытог" />
             <Text style={styles.price}>{shoppingCartSum} ₽</Text>
           </View>
           <View style={[styles.subitem, styles.subitemMargin]}>
-            <Label text="Скидка" />
+            <Label note text="Скидка" />
             <Text style={styles.price}> {discount} ₽</Text>
           </View>
           <View style={[styles.subitem, styles.summary]}>
@@ -29,7 +29,7 @@ class ShoppingCartListFooter extends PureComponent {
           </View>
         </View>
         <View style={styles.btnOrder}>
-          <StyledButton big>
+          <StyledButton large>
             <Text>Оформить</Text>
           </StyledButton>
         </View>

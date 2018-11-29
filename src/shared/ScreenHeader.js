@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../constants/colors";
-import Title from "./Title";
+import StyledText from "./StyledText";
 
 class ScreenHeader extends Component {
   render() {
     const { title } = this.props;
     return (
       <View style={styles.root}>
-        <Title>
-          <Text>{title}</Text>
-        </Title>
+        <StyledText text={title} />
       </View>
     );
   }

@@ -17,7 +17,7 @@ class ShoppingCartListHeader extends PureComponent {
     const { count } = this.props;
     return (
       <View style={styles.root}>
-        <Label text={count + " " + headerText(count)} />
+        <Label note text={count + " " + headerText(count)} />
       </View>
     );
   }

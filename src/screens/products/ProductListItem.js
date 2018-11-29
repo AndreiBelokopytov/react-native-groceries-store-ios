@@ -1,10 +1,17 @@
 import React, { PureComponent } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableHighlight
+} from "react-native";
 import Swipeout from "react-native-swipeout";
-import colors from "../../../constants/colors";
-import ClearButton from "../../../shared/ClearButton";
-import BookmarkIcon from "../../../shared/icons/BookmarkIcon";
-import SwipeActionButton from "../../../shared/SwipeActionButton";
+import colors from "../../constants/colors";
+import BookmarkIcon from "../../shared/icons/BookmarkIcon";
+import StyledButton from "../../shared/StyledButton";
+import StyledText from "../../shared/StyledText";
+import SwipeActionButton from "../../shared/SwipeActionButton";
 
 class ProductListItem extends PureComponent {
   render() {
@@ -18,41 +25,56 @@ class ProductListItem extends PureComponent {
         sensitivity={30}
         scroll={onSwipe}
       >
-        <View style={styles.root}>
-          {product.images.length > 0 && (
-            <Image
-              source={{ uri: product.images[0].url }}
-              style={styles.image}
-            />
-          )}
-          <View style={styles.description}>
-            <View style={styles.descriptionWrapper}>
-              <Text style={styles.productName}>{product.name}</Text>
-              <View style={styles.productPrice}>
-                {product.price < product.regular_price && (
-                  <Text style={styles.oldPrice}>{product.regular_price} ₽</Text>
-                )}
-                <Text style={styles.currentPrice}>{product.price} ₽</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.right}>
-            {inFavorites && (
-              <BookmarkIcon
-                width={12}
-                height={12}
-                fill={colors.primary}
-                style={styles.bookmark}
+        <TouchableHighlight
+          style={styles.touch}
+          underlayColor={colors.background}
+          onPress={this.openDetails}
+        >
+          <View style={styles.root}>
+            {product.images.length > 0 && (
+              <Image
+                source={{ uri: product.images[0].url_small }}
+                style={styles.image}
               />
             )}
-            <ClearButton text="Добавить" onPress={this.addToCart} />
+            <View style={styles.description}>
+              <View style={styles.descriptionWrapper}>
+                <StyledText style={styles.name} text={product.name} />
+                <View style={styles.productPrice}>
+                  {product.price < product.regular_price && (
+                    <Text style={styles.oldPrice}>
+                      {product.regular_price} ₽
+                    </Text>
+                  )}
+                  <Text style={styles.currentPrice}>{product.price} ₽</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.right}>
+              {inFavorites && (
+                <BookmarkIcon
+                  width={12}
+                  height={12}
+                  fill={colors.primary}
+                  style={styles.bookmark}
+                />
+              )}
+              <StyledButton onPress={this.addToCart} outline>
+                <Text>Добавить</Text>
+              </StyledButton>
+            </View>
           </View>
-        </View>
+        </TouchableHighlight>
       </Swipeout>
     );
   }
 
   addToCart = () => this.props.addToCart(this.props.product.id);
+
+  openDetails = () => {
+    const { product } = this.props;
+    this.props.openDetails(product.id);
+  };
 
   getSwipeButtons = () => {
     const {
@@ -86,9 +108,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "stretch",
     paddingTop: 10,
+    paddingBottom: 10,
     paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: "#fff"
+    paddingRight: 20
+  },
+  touch: {
+    backgroundColor: colors.white
   },
   image: {
     width: 62,
@@ -102,10 +127,10 @@ const styles = StyleSheet.create({
   descriptionWrapper: {
     justifyContent: "center"
   },
-  productName: {
+  name: {
     fontSize: 13,
     lineHeight: 16,
-    marginBottom: 6
+    color: colors.black
   },
   productPrice: {
     flexDirection: "row"

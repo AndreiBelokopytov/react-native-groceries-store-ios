@@ -1,12 +1,13 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import StyledText from "./StyledText";
 
 class SwipeActionButton extends PureComponent {
   render() {
     const { text } = this.props;
     return (
       <View style={styles.root}>
-        <Text style={styles.text}>{text}</Text>
+        <StyledText style={styles.text} text={text} />
       </View>
     );
   }
@@ -20,9 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   text: {
-    color: "#fff",
-    fontSize: 13,
-    lineHeight: 16
+    color: "#fff"
   }
 });
 

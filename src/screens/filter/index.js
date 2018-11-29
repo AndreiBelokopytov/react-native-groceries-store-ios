@@ -5,8 +5,8 @@ import { updateSortOrder } from "../../actions/profileActions";
 import HeaderButtons from "../../shared/HeaderButtons";
 import CloseIcon from "../../shared/icons/CloseIcon";
 import Picker from "../../shared/picker/Picker";
-import Title from "../../shared/Title";
-import TransparentButton from "../../shared/TransparentButton";
+import StyledButton from "../../shared/StyledButton";
+import StyledText from "../../shared/StyledText";
 import navigationService from "../../utils/navigationService";
 
 class Filter extends Component {
@@ -14,16 +14,16 @@ class Filter extends Component {
     title: "фильтры",
     headerLeft: (
       <HeaderButtons side="left">
-        <TransparentButton onPress={navigationService.goBack}>
+        <StyledButton onPress={navigationService.goBack} transparent>
           <CloseIcon width={24} height={24} fill="#000" />
-        </TransparentButton>
+        </StyledButton>
       </HeaderButtons>
     ),
     headerRight: (
       <HeaderButtons side="right">
-        <TransparentButton>
+        <StyledButton transparent>
           <Text>Сбросить</Text>
-        </TransparentButton>
+        </StyledButton>
       </HeaderButtons>
     )
   };
@@ -56,9 +56,7 @@ class Filter extends Component {
     return (
       <View style={styles.root}>
         <View style={styles.sortOrder}>
-          <Title variant="h2">
-            <Text>Порядок результатов</Text>
-          </Title>
+          <StyledText variant="h2" text="Порядок результатов" />
           <View style={styles.sortOrderPicker}>
             <Picker
               selectedValue={sortOrder}

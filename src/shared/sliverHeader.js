@@ -16,21 +16,33 @@ const IS_IPHONE_X =
 
 const IPHONE_HEADER_HEIGHT = 44;
 const IPHONE_STATUS_BAR_HEIGHT = IS_IPHONE_X ? 44 : 20;
-
-const COLLAPSIBLE_DEFAULT_HEIGHT = 220;
-const COLLAPSIBLE_TITLE_BOUNCING_HEIGHT = 40;
 const HEADER_HEIGHT = IPHONE_HEADER_HEIGHT + IPHONE_STATUS_BAR_HEIGHT;
 
-function collapsibleHeader(
+function sliverHeader(
   WrappedComponent,
-  { HeroComponent, backgroundColor, tintColor, accentColor } = {}
+  {
+    HeroComponent,
+    backgroundColor,
+    tintColor,
+    accentColor,
+    expandedHeight
+  } = {}
 ) {
-  const navigationOptions = WrappedComponent.navigationOptions || {};
+  const COLLAPSIBLE_TITLE_BOUNCING_HEIGHT = expandedHeight / 3;
+
   const collapsibleOptions = ({ navigation }) => {
     let transparentNav = navigation.getParam("transparentNav");
     if (transparentNav == null) {
       transparentNav = true;
     }
+
+    let navigationOptions = {};
+    if (typeof WrappedComponent.navigationOptions === "function") {
+      navigationOptions = WrappedComponent.navigationOptions({ navigation });
+    } else if (WrappedComponent.navigationOptions != null) {
+      navigationOptions = WrappedComponent.navigationOptions;
+    }
+
     return {
       ...navigationOptions,
       headerTransparent: true,
@@ -48,13 +60,12 @@ function collapsibleHeader(
 
   class ScreenWithCollapsible extends Component {
     scrollY = new Animated.Value(0);
-    collapsibleHeight = COLLAPSIBLE_DEFAULT_HEIGHT;
 
     getCollapsibleOpacity = () =>
       this.scrollY.interpolate({
         inputRange: [
           COLLAPSIBLE_TITLE_BOUNCING_HEIGHT,
-          this.collapsibleHeight - HEADER_HEIGHT
+          expandedHeight - HEADER_HEIGHT
         ],
         outputRange: [1, 0],
         extrapolate: "clamp"
@@ -68,15 +79,12 @@ function collapsibleHeader(
           transparentNav = true;
         }
 
-        if (
-          scrollY.value > this.collapsibleHeight - HEADER_HEIGHT &&
-          transparentNav
-        ) {
+        if (scrollY.value > expandedHeight - HEADER_HEIGHT && transparentNav) {
           navigation.setParams({
             transparentNav: false
           });
         } else if (
-          scrollY.value < this.collapsibleHeight - HEADER_HEIGHT &&
+          scrollY.value < expandedHeight - HEADER_HEIGHT &&
           !transparentNav
         ) {
           navigation.setParams({
@@ -93,7 +101,7 @@ function collapsibleHeader(
             style={[
               styles.hero,
               {
-                height: this.collapsibleHeight,
+                height: expandedHeight,
                 opacity: this.getCollapsibleOpacity()
               }
             ]}
@@ -101,14 +109,14 @@ function collapsibleHeader(
             {HeroComponent && (
               <HeroComponent
                 scrollY={this.scrollY}
-                collapsibleHeight={this.collapsibleHeight}
+                collapsibleHeight={expandedHeight}
                 {...this.props}
               />
             )}
           </Animated.View>
           <WrappedComponent
             scrollY={this.scrollY}
-            collapsibleHeight={this.collapsibleHeight}
+            collapsibleHeight={expandedHeight}
             {...this.props}
           />
         </View>
@@ -136,4 +144,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default collapsibleHeader;
+export default sliverHeader;

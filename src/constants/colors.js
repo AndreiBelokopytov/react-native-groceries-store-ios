@@ -1,6 +1,8 @@
 export default {
+  white: "#FFFFFF",
+  black: "#000000",
   primary: "#FF003D",
-  primaryDark: "#e60036",
+  primaryDark: "#E60036",
   text: "#3C4249",
   background: "#E5E5E5",
   icon: "rgba(60, 66, 73, 0.5)",

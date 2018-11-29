@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
+import colors from "../../constants/colors";
 
 class ProductItemSeparator extends Component {
   render() {
@@ -14,14 +15,13 @@ class ProductItemSeparator extends Component {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    height: 11,
     paddingLeft: 94,
     paddingRight: 20,
-    backgroundColor: "#fff"
+    backgroundColor: colors.white
   },
   border: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "#BCBBC1",
+    borderTopColor: colors.border,
     width: "100%",
     height: 1
   }
