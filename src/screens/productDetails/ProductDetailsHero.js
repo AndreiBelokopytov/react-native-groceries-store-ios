@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, Image, StyleSheet } from "react-native";
-import ImageGradient from "../../../shared/ImageGradient";
+import ImageGradient from "../../shared/ImageGradient";
 
 class ProductDetailsHero extends Component {
   state = {

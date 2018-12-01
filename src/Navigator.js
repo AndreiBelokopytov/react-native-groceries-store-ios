@@ -8,7 +8,7 @@ import {
 import { useScreens } from "react-native-screens";
 import colors from "./constants/colors";
 import { Categories } from "./screens/categories";
-import ProductDetails from "./screens/productDetails";
+import { ProductDetails } from "./screens/productDetails";
 import { Products } from "./screens/products";
 import Profile from "./screens/profile/index";
 import Search from "./screens/search/index";
@@ -28,14 +28,6 @@ const CatalogDetails = createStackNavigator(
   },
   {
     initialRouteName: "Categories",
-    defaultNavigationOptions: {
-      headerLeftContainerStyle: {
-        marginLeft: 12
-      },
-      headerRightContainerStyle: {
-        marginRight: 12
-      }
-    },
     headerMode: "screen"
   }
 );

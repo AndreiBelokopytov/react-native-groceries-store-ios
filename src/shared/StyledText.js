@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 class StyledText extends Component {
   render() {

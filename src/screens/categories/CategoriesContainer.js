@@ -19,9 +19,4 @@ const CategoriesContainer = connect(
   mapDispatchToProps
 )(Categories);
 
-CategoriesContainer.navigationOptions = {
-  header: null,
-  headerBackTitle: null
-};
-
 export default CategoriesContainer;

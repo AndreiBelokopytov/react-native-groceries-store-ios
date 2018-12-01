@@ -4,21 +4,37 @@ import {
   Animated,
   FlatList,
   InteractionManager,
-  StatusBar,
+  Image,
   StyleSheet,
   View
 } from "react-native";
+import { Header } from "react-navigation";
+import { withMappedNavigationProps } from "react-navigation-props-mapper";
 import colors from "../../constants/colors";
+import CollapsibleToolbar from "../../shared/CollapsibleToolbar";
+import ImageGradient from "../../shared/ImageGradient";
+import StyledText from "../../shared/StyledText";
 import navigationService from "../../utils/navigationService";
-import { withCollapsible } from "../../utils/reactNavigationCollapsible";
+import pluralize from "../../utils/pluralize";
 import ProductItemSeparator from "./ProductItemSeparator";
 import ProductListItem from "./ProductListItem";
 import ProductsHeader from "./ProductsHeader";
 import ProductsListHeader from "./ProductsListHeader";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const HEADER_HEIGHT = Header.HEIGHT;
+
+const productsText = pluralize({
+  "0": "нет продуктов",
+  "1": "продукт",
+  "2-4": "продукта",
+  many: "продуктов"
+});
 
 class Products extends React.Component {
+  static scrollY = new Animated.Value(0);
+  static toolbarHeight = 220;
+
   state = {
     interactionEnded: false,
     allowVerticalScroll: true
@@ -29,19 +45,27 @@ class Products extends React.Component {
       this.setState({
         interactionEnded: true
       });
+      this.props.navigation.setParams({
+        scrollY: Products.scrollY,
+        toolbarHeight: Products.toolbarHeight
+      });
     });
   }
 
   render() {
-    const {
-      products,
-      collapsible: { paddingHeight, onScroll, scrollY }
-    } = this.props;
+    const { products } = this.props;
     const { interactionEnded } = this.state;
 
     return (
       <View style={styles.root}>
-        <StatusBar barStyle="light-content" />
+        <CollapsibleToolbar
+          expandedHeight={Products.toolbarHeight}
+          headerHeight={HEADER_HEIGHT}
+          scrollY={Products.scrollY}
+          overlayColor={colors.white}
+          renderBackground={this.renderToolbarBackground}
+          renderTitle={this.renderToolbarTitle}
+        />
         <View style={{ flex: 1 }}>
           {interactionEnded ? (
             <AnimatedFlatList
@@ -50,14 +74,18 @@ class Products extends React.Component {
               keyExtractor={this.productKeyExtractor}
               renderItem={this.renderListItem}
               contentContainerStyle={{
-                paddingTop: paddingHeight,
+                paddingTop: Products.toolbarHeight,
                 paddingBottom: 20
               }}
-              scrollIndicatorInsets={{ top: paddingHeight }}
-              onScroll={onScroll}
+              scrollIndicatorInsets={{ top: Products.toolbarHeight }}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { y: Products.scrollY } } }],
+                {
+                  userNativeDriver: true
+                }
+              )}
               ItemSeparatorComponent={ProductItemSeparator}
               ListHeaderComponent={ProductsListHeader}
-              _mustAddThis={scrollY}
             />
           ) : (
             <View style={styles.loading}>
@@ -88,6 +116,55 @@ class Products extends React.Component {
     );
   };
 
+  renderToolbarBackground = props => {
+    const { category } = this.props;
+    return (
+      <View {...props}>
+        <Image
+          style={styles.image}
+          resizeMode={"cover"}
+          source={{ uri: category.image_medium }}
+        />
+        <View style={styles.gradient}>
+          <ImageGradient />
+        </View>
+      </View>
+    );
+  };
+
+  renderToolbarTitle = ({ style: titleStyle, scrollY, expandedHeight }) => {
+    const { category } = this.props;
+    return (
+      <Animated.View
+        style={[
+          titleStyle,
+          styles.title,
+          {
+            transform: [
+              {
+                translateY: scrollY.interpolate({
+                  inputRange: [0, expandedHeight],
+                  outputRange: [0, -expandedHeight],
+                  extrapolate: "clamp"
+                })
+              }
+            ]
+          }
+        ]}
+      >
+        <StyledText
+          style={styles.categoryName}
+          variant="title2"
+          text={category.name}
+        />
+        <StyledText
+          style={styles.categoryProducts}
+          text={category.products + " " + productsText(category.products)}
+        />
+      </Animated.View>
+    );
+  };
+
   swipeScrollEvent = allowParentScroll => {
     if (this.state.allowVerticalScroll !== allowParentScroll) {
       this.setState({ allowVerticalScroll: allowParentScroll });
@@ -100,8 +177,10 @@ class Products extends React.Component {
   };
 
   openProductDetails = productId => {
+    const { products } = this.props;
+    const product = products.find(item => item.id === productId);
     navigationService.navigate("ProductDetails", {
-      productId
+      product
     });
   };
 }
@@ -121,17 +200,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  image: {
+    width: "100%",
+    height: "100%"
+  },
+  gradient: {
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    height: "100%"
+  },
+  title: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  categoryProducts: {
+    color: colors.white,
+    opacity: 0.86
+  },
+  categoryName: {
+    color: colors.white,
+    marginBottom: 6
   }
 });
 
 Products.navigationOptions = ({ navigation }) => {
   return {
-    headerBackTitle: null,
-    headerStyle: {
-      height: 220
-    },
-    header: <ProductsHeader navigation={navigation} />
+    header: (
+      <ProductsHeader
+        scrollY={Products.scrollY}
+        toolbarHeight={Products.toolbarHeight}
+        navigation={navigation}
+      />
+    )
   };
 };
 
-export default withCollapsible(Products);
+export default withMappedNavigationProps()(Products);

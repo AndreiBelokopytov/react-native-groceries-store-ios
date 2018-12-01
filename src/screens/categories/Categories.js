@@ -53,4 +53,9 @@ const styles = StyleSheet.create({
   }
 });
 
+Categories.navigationOptions = {
+  header: null,
+  headerBackTitle: null
+};
+
 export default Categories;
