@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import Label from "../../../shared/Label";
-import pluralize from "../../../utils/pluralize";
-import { getShoppingCartCounter } from "../../../utils/stateSelectors/shoppingCartSelectors";
+import Label from "../../shared/Label";
+import pluralize from "../../utils/pluralize";
+import { getShoppingCartCounter } from "../../utils/stateSelectors/shoppingCartSelectors";
 
 const headerText = pluralize({
   "0": "",

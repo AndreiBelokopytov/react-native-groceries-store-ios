@@ -12,7 +12,7 @@ import { ProductDetails } from "./screens/productDetails";
 import { Products } from "./screens/products";
 import Profile from "./screens/profile/index";
 import Search from "./screens/search/index";
-import ShoppingCart from "./screens/shoppingCart/index";
+import { ShoppingCart } from "./screens/shoppingCart";
 import { Loading } from "./screens/loading";
 import Filter from "./screens/filter/index";
 import CategoriesIcon from "./shared/icons/CategoriesIcon";

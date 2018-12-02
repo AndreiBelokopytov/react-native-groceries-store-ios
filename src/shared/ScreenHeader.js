@@ -8,7 +8,7 @@ class ScreenHeader extends Component {
     const { title } = this.props;
     return (
       <View style={styles.root}>
-        <StyledText text={title} />
+        <StyledText color={colors.black} variant="title1" text={title} />
       </View>
     );
   }
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.hairlineBorder,
     paddingHorizontal: 20,
     paddingBottom: 9
+  },
+  title: {
+    color: colors.black
   }
 });
 

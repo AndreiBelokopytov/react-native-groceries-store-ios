@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import colors from "../../../constants/colors";
+import colors from "../../constants/colors";
 
 class ShoppingCartListItem extends PureComponent {
   render() {
@@ -8,7 +8,10 @@ class ShoppingCartListItem extends PureComponent {
     return (
       <View style={styles.root}>
         {product.images.length > 0 && (
-          <Image source={{ uri: product.images[0].url }} style={styles.image} />
+          <Image
+            source={{ uri: product.images[0].url_small }}
+            style={styles.image}
+          />
         )}
         <View style={styles.description}>
           <View style={styles.descriptionWrapper}>

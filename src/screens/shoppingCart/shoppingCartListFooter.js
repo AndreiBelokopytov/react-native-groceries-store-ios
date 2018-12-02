@@ -1,11 +1,10 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
-import colors from "../../../constants/colors";
-import Label from "../../../shared/Label";
-import StyledButton from "../../../shared/StyledButton";
-import TextEdit from "../../../shared/TextEdit";
-import { getShoppingCartSum } from "../../../utils/stateSelectors/shoppingCartSelectors";
+import colors from "../../constants/colors";
+import Label from "../../shared/Label";
+import StyledButton from "../../shared/StyledButton";
+import { getShoppingCartSum } from "../../utils/stateSelectors/shoppingCartSelectors";
 
 class ShoppingCartListFooter extends PureComponent {
   render() {
@@ -33,7 +32,6 @@ class ShoppingCartListFooter extends PureComponent {
             <Text>Оформить</Text>
           </StyledButton>
         </View>
-        <TextEdit placeholder="Промокод" />
       </View>
     );
   }
