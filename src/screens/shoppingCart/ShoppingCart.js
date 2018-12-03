@@ -46,8 +46,12 @@ export default class ShoppingCart extends Component {
 
   productKeyExtractor = item => item.product.id;
 
-  renderListItem = ({ item }) => (
-    <ShoppingCartListItem product={item.product} count={item.count} />
+  renderListItem = ({ item: { product, count } }) => (
+    <ShoppingCartListItem
+      product={product}
+      count={count}
+      changeCount={this.props.changeCount}
+    />
   );
 }
 

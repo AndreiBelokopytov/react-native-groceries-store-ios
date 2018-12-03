@@ -1,5 +1,8 @@
 import connect from "react-redux/es/connect/connect";
-import { removeFromShoppingCart } from "../../actions/profileActions";
+import {
+  removeFromShoppingCart,
+  addToShoppingCart
+} from "../../actions/profileActions";
 import { getProductsInCart } from "../../utils/stateSelectors/shoppingCartSelectors";
 import ShoppingCart from "./ShoppingCart";
 
@@ -14,7 +17,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeFromCart: productId => dispatch(removeFromShoppingCart(productId))
+    removeFromCart: productId => dispatch(removeFromShoppingCart(productId)),
+    changeCount: (productId, categoryId, count) =>
+      dispatch(addToShoppingCart(productId, categoryId, count))
   };
 };
 

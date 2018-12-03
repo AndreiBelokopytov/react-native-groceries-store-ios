@@ -1,10 +1,19 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import colors from "../../constants/colors";
+import StyledButton from "../../shared/StyledButton";
 
-class ShoppingCartListItem extends PureComponent {
+export default class ShoppingCartListItem extends PureComponent {
+  updateCount = count => () => {
+    const {
+      product: { id }
+    } = this.props;
+    // вот это хз откуда брать
+    const categoryId = null;
+    this.props.changeCount(id, categoryId, count);
+  };
   render() {
-    const { product } = this.props;
+    const { product, count } = this.props;
     return (
       <View style={styles.root}>
         {product.images.length > 0 && (
@@ -16,15 +25,22 @@ class ShoppingCartListItem extends PureComponent {
         <View style={styles.description}>
           <View style={styles.descriptionWrapper}>
             <Text style={styles.productName}>{product.name}</Text>
+            <View style={styles.productPrice}>
+              {product.price < product.regular_price && (
+                <Text style={styles.oldPrice}>{product.regular_price} ₽</Text>
+              )}
+              <Text style={styles.currentPrice}>{product.price} ₽</Text>
+            </View>
           </View>
         </View>
         <View style={styles.right}>
-          <View style={styles.productPrice}>
-            {product.price < product.regular_price && (
-              <Text style={styles.oldPrice}>{product.regular_price} ₽</Text>
-            )}
-            <Text style={styles.currentPrice}>{product.price} ₽</Text>
-          </View>
+          <StyledButton onPress={this.updateCount(count - 1)} outline>
+            <Text>-</Text>
+          </StyledButton>
+          <Text style={styles.count}>{count}</Text>
+          <StyledButton onPress={this.updateCount(count + 1)} outline>
+            <Text>+</Text>
+          </StyledButton>
         </View>
       </View>
     );
@@ -59,7 +75,7 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   productPrice: {
-    flexDirection: "row"
+    flexDirection: "column"
   },
   currentPrice: {
     fontSize: 14,
@@ -79,7 +95,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 16
+  },
+  count: {
+    fontSize: 14,
+    width: 22,
+    fontWeight: "400",
+    lineHeight: 22,
+    marginRight: 6,
+    marginLeft: 6,
+    textAlign: "center"
   }
 });
-
-export default ShoppingCartListItem;

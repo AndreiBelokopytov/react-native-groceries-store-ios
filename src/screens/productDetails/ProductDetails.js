@@ -89,9 +89,12 @@ class ProductDetails extends Component {
   };
 
   addProductToCart = () => {
-    const { addToCart, selectedCategory: categoryId } = this.props;
-    const { product } = this.state;
-    addToCart(product.id, categoryId, 1);
+    const {
+      addToCart,
+      selectedCategory: categoryId,
+      product: { id: productId }
+    } = this.props;
+    addToCart(productId, categoryId, 1);
   };
 }
 
