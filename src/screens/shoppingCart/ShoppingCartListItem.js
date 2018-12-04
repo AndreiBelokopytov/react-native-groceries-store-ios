@@ -25,6 +25,7 @@ class ShoppingCartListItem extends PureComponent {
             renderValue={this.renderValue}
             value={count}
             minValue={0}
+            maxValue={99}
             onChange={count =>
               this.props.changeCount(product.id, categoryId, count)
             }
@@ -35,8 +36,8 @@ class ShoppingCartListItem extends PureComponent {
   }
 
   renderValue = value => (
-    <View style={styles.count}>
-      <Text>{value}</Text>
+    <View style={styles.countContainer}>
+      <Text style={styles.countText}>{value}</Text>
     </View>
   );
 }
@@ -77,16 +78,19 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: colors.primary
   },
-  count: {
+  countContainer: {
     justifyContent: "center",
     alignItems: "center",
-    width: 20
+    width: 30
+  },
+  countText: {
+    fontSize: 24
   },
   right: {
     width: 100,
     alignItems: "center",
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 16
   }
 });
 
