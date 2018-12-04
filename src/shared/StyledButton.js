@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  View,
   Text,
   TouchableHighlight,
   TouchableOpacity,
@@ -12,11 +11,12 @@ class StyledButton extends Component {
   static defaultProps = {
     large: false,
     clear: false,
-    transparent: false
+    transparent: false,
+    iconLeft: false
   };
 
   render() {
-    const { onPress, outline, transparent, large } = this.props;
+    const { onPress, outline, transparent, large, iconLeft } = this.props;
     let modifierStyles = [];
 
     if (large) {
@@ -31,7 +31,12 @@ class StyledButton extends Component {
       modifierStyles = modifierStyles.concat(transparentStyles);
     }
 
+    if (iconLeft) {
+      modifierStyles = modifierStyles.concat(iconLeftStyles);
+    }
+
     const children = React.Children.map(this.props.children, element => {
+      console.log(element.type);
       if (element.type === Text) {
         return React.cloneElement(element, {
           style: [
@@ -65,7 +70,7 @@ class StyledButton extends Component {
           onPress={onPress}
           underlayColor={colors.primaryDark}
         >
-          <View>{children}</View>
+          <React.Fragment>{children}</React.Fragment>
         </TouchableHighlight>
       );
     }
@@ -80,7 +85,8 @@ const normalBtnStyles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 40,
     backgroundColor: colors.primary,
-    paddingHorizontal: 14
+    paddingLeft: 14,
+    paddingRight: 14
   },
   text: {
     fontSize: 13,
@@ -91,7 +97,8 @@ const normalBtnStyles = StyleSheet.create({
 const largeStyles = StyleSheet.create({
   root: {
     height: 50,
-    paddingHorizontal: 25
+    paddingLeft: 25,
+    paddingRight: 25
   },
   text: {
     fontSize: 17
@@ -114,7 +121,15 @@ const transparentStyles = StyleSheet.create({
     backgroundColor: "transparent"
   },
   text: {
-    color: colors.primary
+    color: colors.primary,
+    fontSize: 17,
+    lineHeight: 22
+  }
+});
+
+const iconLeftStyles = StyleSheet.create({
+  root: {
+    paddingLeft: 0
   }
 });
 

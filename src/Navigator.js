@@ -10,7 +10,7 @@ import colors from "./constants/colors";
 import { Categories } from "./screens/categories";
 import { ProductDetails } from "./screens/productDetails";
 import { Products } from "./screens/products";
-import Profile from "./screens/profile/index";
+import { Profile } from "./screens/profile";
 import Search from "./screens/search/index";
 import { ShoppingCart } from "./screens/shoppingCart";
 import { Loading } from "./screens/loading";
