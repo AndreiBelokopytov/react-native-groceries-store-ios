@@ -6,7 +6,8 @@ let getProductsInCart = (products, shoppingCart) => {
     const product = productsSet.find(item => item.id === productId);
     return {
       product,
-      count
+      count,
+      categoryId
     };
   });
 };

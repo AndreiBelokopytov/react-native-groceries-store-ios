@@ -33,12 +33,8 @@ export default function(state = initialState, action) {
     case PROFILE_ADD_TO_SHOPPING_CART: {
       const { productId, categoryId, count } = action.payload;
       let updatedCart;
-      const productInCart = state.shoppingCart.get(productId);
-      if (productInCart) {
-        updatedCart = state.shoppingCart.set(productId, {
-          categoryId,
-          count: count + productInCart.count
-        });
+      if (count === 0) {
+        updatedCart = state.shoppingCart.remove(productId);
       } else {
         updatedCart = state.shoppingCart.set(productId, {
           categoryId,

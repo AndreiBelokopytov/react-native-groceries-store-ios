@@ -1,10 +1,11 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import NumericInput from "../../shared/Numeric";
 import colors from "../../constants/colors";
 
 class ShoppingCartListItem extends PureComponent {
   render() {
-    const { product } = this.props;
+    const { product, count, categoryId } = this.props;
     return (
       <View style={styles.root}>
         {product.images.length > 0 && (
@@ -16,19 +17,28 @@ class ShoppingCartListItem extends PureComponent {
         <View style={styles.description}>
           <View style={styles.descriptionWrapper}>
             <Text style={styles.productName}>{product.name}</Text>
+            <Text style={styles.currentPrice}>{product.price} ₽</Text>
           </View>
         </View>
         <View style={styles.right}>
-          <View style={styles.productPrice}>
-            {product.price < product.regular_price && (
-              <Text style={styles.oldPrice}>{product.regular_price} ₽</Text>
-            )}
-            <Text style={styles.currentPrice}>{product.price} ₽</Text>
-          </View>
+          <NumericInput
+            renderValue={this.renderValue}
+            value={count}
+            minValue={0}
+            onChange={count =>
+              this.props.changeCount(product.id, categoryId, count)
+            }
+          />
         </View>
       </View>
     );
   }
+
+  renderValue = value => (
+    <View style={styles.count}>
+      <Text>{value}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -67,18 +77,16 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: colors.primary
   },
-  oldPrice: {
-    fontSize: 14,
-    fontWeight: "400",
-    lineHeight: 22,
-    color: colors.textDisabled,
-    textDecorationLine: "line-through",
-    marginRight: 6
+  count: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 20
   },
   right: {
-    flexDirection: "row",
+    width: 100,
     alignItems: "center",
-    marginLeft: 16
+    marginLeft: 10,
+    marginRight: 10
   }
 });
 
