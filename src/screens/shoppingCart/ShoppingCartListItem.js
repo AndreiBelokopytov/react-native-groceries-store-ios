@@ -26,8 +26,8 @@ class ShoppingCartListItem extends PureComponent {
             value={count}
             minValue={0}
             maxValue={99}
-            onChange={count =>
-              this.props.changeCount(product.id, categoryId, count)
+            onChange={_count =>
+              this.props.changeCount(product.id, categoryId, _count - count)
             }
           />
         </View>
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 62,
-    height: 62
+    height: 62,
+    borderRadius: 10
   },
   description: {
     flexDirection: "row",
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     marginLeft: 12
   },
   descriptionWrapper: {
-    justifyContent: "center"
+    justifyContent: "space-between"
   },
   productName: {
     fontSize: 13,
@@ -87,9 +88,10 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   right: {
+    height: "100%",
     width: 100,
     alignItems: "center",
-    marginLeft: 10,
+    justifyContent: "center",
     marginRight: 16
   }
 });

@@ -1,8 +1,7 @@
 import React, { PureComponent } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import MinusCircleIcon from "./icons/MinusCircleIcon";
 import PlusCircleIcon from "./icons/PlusCircleIcon";
-import StyledButton from "./StyledButton";
 
 export default class NumericInput extends PureComponent {
   static defaultProps = {
@@ -15,15 +14,15 @@ export default class NumericInput extends PureComponent {
     return (
       <View style={styles.root}>
         <View style={styles.buttonContainer}>
-          <StyledButton onPress={this.onMinus} transparent>
-            <MinusCircleIcon width={36} height={36} fill="#000" />
-          </StyledButton>
+          <TouchableOpacity onPress={this.onMinus} activeOpacity={0.5}>
+            <MinusCircleIcon width={24} height={24} fill="#000" />
+          </TouchableOpacity>
         </View>
         {renderValue && renderValue(value)}
         <View style={styles.buttonContainer}>
-          <StyledButton onPress={this.onPlus} transparent>
-            <PlusCircleIcon width={36} height={36} fill="#000" />
-          </StyledButton>
+          <TouchableOpacity onPress={this.onPlus} activeOpacity={0.5}>
+            <PlusCircleIcon width={24} height={24} fill="#000" />
+          </TouchableOpacity>
         </View>
       </View>
     );
