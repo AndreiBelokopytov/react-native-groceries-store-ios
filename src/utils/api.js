@@ -2,8 +2,6 @@ import { API_URL } from "react-native-dotenv";
 import qs from "querystring";
 
 function handleResponse(response) {
-  console.log(response.status);
-  console.log(response);
   if (response.status >= 400) {
     throw new Error(
       `Request failed to ${response.url}, status: ${

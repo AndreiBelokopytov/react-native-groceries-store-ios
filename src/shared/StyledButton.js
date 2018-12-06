@@ -36,7 +36,6 @@ class StyledButton extends Component {
     }
 
     const children = React.Children.map(this.props.children, element => {
-      console.log(element.type);
       if (element.type === Text) {
         return React.cloneElement(element, {
           style: [
