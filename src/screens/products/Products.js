@@ -43,6 +43,7 @@ class Products extends React.Component {
   );
 
   componentDidMount() {
+    Products.scrollY.setValue(0);
     InteractionManager.runAfterInteractions(() => {
       this.setState({
         interactionEnded: true
