@@ -3,6 +3,7 @@ import { Header, Body, Icon, Left, Right, Title } from "native-base";
 import { Animated, StatusBar, StyleSheet, View } from "react-native";
 import { Header as Nav } from "react-navigation";
 import navigationService from "../utils/navigationService";
+import IconButton from "./IconButton";
 
 const HEADER_HEIGHT = Nav.HEIGHT;
 
@@ -83,21 +84,18 @@ export default class TranslucentHeader extends React.Component {
             })
           }}
         >
-          <Left
-            style={{
-              paddingLeft: 12
-            }}
-          >
-            <AnimatedIcon
-              name="ios-arrow-back"
-              style={{
-                color: this.tintColorTransform.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: ["rgba(255, 255, 255, 1)", "rgba(0, 0, 0, 1)"]
-                })
-              }}
-              onPress={navigationService.goBack}
-            />
+          <Left>
+            <IconButton onPress={navigationService.goBack}>
+              <AnimatedIcon
+                name="ios-arrow-back"
+                style={{
+                  color: this.tintColorTransform.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ["rgba(255, 255, 255, 1)", "rgba(0, 0, 0, 1)"]
+                  })
+                }}
+              />
+            </IconButton>
           </Left>
           <Body>
             {title && (
