@@ -14,10 +14,9 @@ import ChevronRightIcon from "../../shared/icons/ChevronRightIcon";
 import EnterIcon from "../../shared/icons/EnterIcon";
 import HelpIcon from "../../shared/icons/HelpIcon";
 import MapPinIcon from "../../shared/icons/MapPinIcon";
-import ProfileIcon from "../../shared/icons/ProfileIcon";
 import StyledButton from "../../shared/StyledButton";
 import StyledText from "../../shared/StyledText";
-import tabBarIcon from "../../shared/tabBarIcon";
+import navigationService from "../../utils/navigationService";
 import pluralize from "../../utils/pluralize";
 
 const productsText = pluralize({
@@ -82,6 +81,7 @@ class Profile extends React.Component {
           <TouchableHighlight
             style={styles.touchableItem}
             underlayColor={colors.background}
+            onPress={this.navigateToScreen("Favorites")}
           >
             <View style={styles.profileItem}>
               <View style={styles.profileItemWrapper}>
@@ -162,6 +162,10 @@ class Profile extends React.Component {
       acceptNotifications: !this.state.acceptNotifications
     });
   };
+
+  navigateToScreen = screenName => () => {
+    navigationService.navigate(screenName);
+  };
 }
 
 const styles = StyleSheet.create({
@@ -228,11 +232,7 @@ const styles = StyleSheet.create({
 });
 
 Profile.navigationOptions = {
-  header: null,
-  title: "Профиль",
-  tabBarIcon: tabBarIcon(ProfileIcon),
-  borderBottomWidth: StyleSheet.hairlineWidth,
-  borderBottomColor: colors.hairlineBorder
+  header: null
 };
 
 export default Profile;

@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import Swipeout from "react-native-swipeout";
 import colors from "../../constants/colors";
-import BookmarkIcon from "../../shared/icons/BookmarkIcon";
-import StyledButton from "../../shared/StyledButton";
-import StyledText from "../../shared/StyledText";
-import SwipeActionButton from "../../shared/SwipeActionButton";
+import BookmarkIcon from "../icons/BookmarkIcon";
+import StyledButton from "../StyledButton";
+import StyledText from "../StyledText";
+import SwipeActionButton from "../SwipeActionButton";
 
 class ProductListItem extends PureComponent {
   render() {
@@ -104,7 +104,6 @@ class ProductListItem extends PureComponent {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "stretch",
     paddingTop: 10,

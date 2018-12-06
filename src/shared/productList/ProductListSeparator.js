@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 
-class ProductItemSeparator extends Component {
+class ProductListSeparator extends Component {
   render() {
     return (
       <View style={styles.root}>
@@ -14,7 +14,6 @@ class ProductItemSeparator extends Component {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     paddingLeft: 94,
     paddingRight: 20,
     backgroundColor: colors.white
@@ -27,4 +26,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductItemSeparator;
+export default ProductListSeparator;
