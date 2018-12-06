@@ -64,6 +64,10 @@ export default class TranslucentHeader extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    StatusBar.setBarStyle("dark-content", true);
+  }
+
   render() {
     const { title, backTitle, HeaderRightComponent } = this.props;
     return (
