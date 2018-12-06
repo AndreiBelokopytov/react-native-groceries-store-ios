@@ -47,7 +47,7 @@ class StyledButton extends Component {
       }
       return element;
     });
-    if (outline) {
+    if (outline || transparent) {
       return (
         <TouchableOpacity
           style={[
