@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   ActivityIndicator,
   Animated,
-  FlatList,
   InteractionManager,
   Image,
   StyleSheet,
@@ -13,15 +12,11 @@ import { withMappedNavigationProps } from "react-navigation-props-mapper";
 import colors from "../../constants/colors";
 import CollapsibleToolbar from "../../shared/CollapsibleToolbar";
 import ImageGradient from "../../shared/ImageGradient";
+import { ProductList } from "../../shared/productList";
 import StyledText from "../../shared/StyledText";
-import navigationService from "../../utils/navigationService";
 import pluralize from "../../utils/pluralize";
-import ProductItemSeparator from "./ProductItemSeparator";
-import ProductListItem from "./ProductListItem";
 import ProductsHeader from "./ProductsHeader";
-import ProductsListHeader from "./ProductsListHeader";
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const HEADER_HEIGHT = Header.HEIGHT;
 
 const productsText = pluralize({
@@ -40,14 +35,18 @@ class Products extends React.Component {
     allowVerticalScroll: true
   };
 
+  onListScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { y: Products.scrollY } } }],
+    {
+      userNativeDriver: true
+    }
+  );
+
   componentDidMount() {
+    Products.scrollY.setValue(0);
     InteractionManager.runAfterInteractions(() => {
       this.setState({
         interactionEnded: true
-      });
-      this.props.navigation.setParams({
-        scrollY: Products.scrollY,
-        toolbarHeight: Products.toolbarHeight
       });
     });
   }
@@ -68,24 +67,10 @@ class Products extends React.Component {
         />
         <View style={{ flex: 1 }}>
           {interactionEnded ? (
-            <AnimatedFlatList
-              style={styles.products}
-              data={products}
-              keyExtractor={this.productKeyExtractor}
-              renderItem={this.renderListItem}
-              contentContainerStyle={{
-                paddingTop: Products.toolbarHeight,
-                paddingBottom: 20
-              }}
-              scrollIndicatorInsets={{ top: Products.toolbarHeight }}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { y: Products.scrollY } } }],
-                {
-                  userNativeDriver: true
-                }
-              )}
-              ItemSeparatorComponent={ProductItemSeparator}
-              ListHeaderComponent={ProductsListHeader}
+            <ProductList
+              products={products}
+              onScroll={this.onListScroll}
+              paddingTop={Products.toolbarHeight}
             />
           ) : (
             <View style={styles.loading}>
@@ -96,25 +81,6 @@ class Products extends React.Component {
       </View>
     );
   }
-
-  productKeyExtractor = item => item.id;
-
-  renderListItem = ({ item }) => {
-    const { favorites, addToFavorites, removeFromFavorites } = this.props;
-
-    const inFavorites = favorites.has(item.id);
-    return (
-      <ProductListItem
-        product={item}
-        onSwipe={this.swipeScrollEvent}
-        inFavorites={inFavorites}
-        addToFavorites={addToFavorites}
-        removeFromFavorites={removeFromFavorites}
-        addToCart={this.addProductToCart}
-        openDetails={this.openProductDetails}
-      />
-    );
-  };
 
   renderToolbarBackground = props => {
     const { category } = this.props;
@@ -164,25 +130,6 @@ class Products extends React.Component {
       </Animated.View>
     );
   };
-
-  swipeScrollEvent = allowParentScroll => {
-    if (this.state.allowVerticalScroll !== allowParentScroll) {
-      this.setState({ allowVerticalScroll: allowParentScroll });
-    }
-  };
-
-  addProductToCart = productId => {
-    const { addToCart, selectedCategory: categoryId } = this.props;
-    addToCart(productId, categoryId, 1);
-  };
-
-  openProductDetails = productId => {
-    const { products } = this.props;
-    const product = products.find(item => item.id === productId);
-    navigationService.navigate("ProductDetails", {
-      product
-    });
-  };
 }
 
 const styles = StyleSheet.create({
@@ -191,9 +138,6 @@ const styles = StyleSheet.create({
   },
   content: {
     position: "absolute",
-    flex: 1
-  },
-  products: {
     flex: 1
   },
   loading: {
