@@ -18,12 +18,10 @@ export default class TranslucentHeader extends React.Component {
   tintColorTransform = new Animated.Value(0);
 
   componentDidMount() {
-    const { scrollY, toolbarHeight } = this.props;
+    const { scrollY, toolbarHeight, navigation } = this.props;
 
-    // I don't know why I need timer here, but it works
-    setTimeout(() => {
-      StatusBar.setBarStyle(this.getStatusBarStyle(), true);
-    }, 100);
+    navigation.addListener("willFocus", this.setStatusBarStyle);
+    navigation.addListener("willBlur", this.resetStatusBarStyle);
 
     scrollY.addListener(scrollY => {
       if (
@@ -64,74 +62,89 @@ export default class TranslucentHeader extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    StatusBar.setBarStyle("dark-content", true);
-  }
-
   render() {
     const { title, backTitle, HeaderRightComponent } = this.props;
     return (
-      <View style={styles.root}>
-        <AnimatedHeader
-          transparent
-          noShadow
-          style={{
-            height: HEADER_HEIGHT,
-            backgroundColor: this.backgroundTransform.interpolate({
-              inputRange: [0, 1],
-              outputRange: ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 1)"]
-            }),
-            borderBottomWidth: StyleSheet.hairlineWidth,
-            borderBottomColor: this.backgroundTransform.interpolate({
-              inputRange: [0, 1],
-              outputRange: ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.3)"]
-            })
-          }}
-        >
-          <Left>
-            <IconButton onPress={navigationService.goBack}>
-              <AnimatedIcon
-                name="ios-arrow-back"
-                style={{
-                  color: this.tintColorTransform.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ["rgba(255, 255, 255, 1)", "rgba(0, 0, 0, 1)"]
-                  })
-                }}
-              />
-            </IconButton>
-          </Left>
-          <Body>
-            {title && (
-              <AnimatedTitle
-                style={{
-                  color: this.tintColorTransform.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 1)"]
-                  })
-                }}
-              >
-                {title}
-              </AnimatedTitle>
-            )}
-          </Body>
-          <Right>
-            {HeaderRightComponent && (
-              <HeaderRightComponent
-                darkMode={this.darkMode}
-                backgroundTransform={this.backgroundTransform}
-                tintColorTransform={this.tintColorTransform}
-                {...this.props}
-              />
-            )}
-          </Right>
-        </AnimatedHeader>
-      </View>
+      <>
+        <View style={styles.root}>
+          <AnimatedHeader
+            transparent
+            noShadow
+            style={{
+              height: HEADER_HEIGHT,
+              backgroundColor: this.backgroundTransform.interpolate({
+                inputRange: [0, 1],
+                outputRange: [
+                  "rgba(255, 255, 255, 0)",
+                  "rgba(255, 255, 255, 1)"
+                ]
+              }),
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              borderBottomColor: this.backgroundTransform.interpolate({
+                inputRange: [0, 1],
+                outputRange: ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.3)"]
+              })
+            }}
+          >
+            <Left>
+              <IconButton onPress={navigationService.goBack}>
+                <AnimatedIcon
+                  name="ios-arrow-back"
+                  style={{
+                    color: this.tintColorTransform.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [
+                        "rgba(255, 255, 255, 1)",
+                        "rgba(0, 0, 0, 1)"
+                      ]
+                    })
+                  }}
+                />
+              </IconButton>
+            </Left>
+            <Body>
+              {title && (
+                <AnimatedTitle
+                  style={{
+                    color: this.tintColorTransform.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 1)"]
+                    })
+                  }}
+                >
+                  {title}
+                </AnimatedTitle>
+              )}
+            </Body>
+            <Right>
+              {HeaderRightComponent && (
+                <HeaderRightComponent
+                  darkMode={this.darkMode}
+                  backgroundTransform={this.backgroundTransform}
+                  tintColorTransform={this.tintColorTransform}
+                  {...this.props}
+                />
+              )}
+            </Right>
+          </AnimatedHeader>
+        </View>
+      </>
     );
   }
 
   getStatusBarStyle = () => {
     return this.darkMode ? "dark-content" : "light-content";
+  };
+
+  resetStatusBarStyle = () => {
+    StatusBar.setBarStyle("dark-content");
+  };
+
+  setStatusBarStyle = payload => {
+    // it doesn't work without a timer. Magic!
+    setTimeout(() => {
+      StatusBar.setBarStyle(this.getStatusBarStyle());
+    }, 100);
   };
 }
 
