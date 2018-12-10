@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import NumericInput from "../../shared/Numeric";
+import NumericInput from "../../shared/NumericInput";
 import colors from "../../constants/colors";
 
 class ShoppingCartListItem extends PureComponent {
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     height: "100%",
     width: 100,
     alignItems: "center",
-    justifyContent: "center",
-    marginRight: 16
+    flexDirection: "row",
+    justifyContent: "center"
   }
 });
 

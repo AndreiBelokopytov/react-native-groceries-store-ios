@@ -48,13 +48,12 @@ export default class NumericInput extends PureComponent {
 const styles = StyleSheet.create({
   root: {
     width: "100%",
-    height: 50,
+    height: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "stretch"
   },
   buttonContainer: {
-    width: 52,
     alignItems: "center",
     justifyContent: "center"
   }
