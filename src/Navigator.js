@@ -12,12 +12,14 @@ import { Favorites } from "./screens/favorites";
 import { ProductDetails } from "./screens/productDetails";
 import { Products } from "./screens/products";
 import { Profile } from "./screens/profile";
-import Search from "./screens/search/index";
+import { Search } from "./screens/search";
+import { SearchResults } from "./screens/searchResults";
 import { ShoppingCart } from "./screens/shoppingCart";
 import { Loading } from "./screens/loading";
 import Filter from "./screens/filter/index";
 import CategoriesIcon from "./shared/icons/CategoriesIcon";
 import ProfileIcon from "./shared/icons/ProfileIcon";
+import SearchIcon from "./shared/icons/SearchIcon";
 import tabBarIcon from "./shared/tabBarIcon";
 
 useScreens();
@@ -76,12 +78,39 @@ ProfileTab.navigationOptions = {
   tabBarIcon: tabBarIcon(ProfileIcon)
 };
 
+const SearchTab = createStackNavigator(
+  {
+    Search,
+    SearchResults
+  },
+  {
+    defaultNavigationOptions: {
+      headerTintColor: colors.primary,
+      headerBackTitle: null,
+      headerLeftContainerStyle: {
+        paddingLeft: 12
+      },
+      headerRightContainerStyle: {
+        paddingRight: 12
+      },
+      headerTitleStyle: {
+        color: colors.black
+      }
+    }
+  }
+);
+
+SearchTab.navigationOptions = {
+  title: "Поиск",
+  tabBarIcon: tabBarIcon(SearchIcon)
+};
+
 const Tabs = createBottomTabNavigator(
   {
     Catalog,
-    Search,
+    SearchTab,
     ShoppingCart,
-    Profile: ProfileTab
+    ProfileTab
   },
   {
     initialRouteName: "Catalog",

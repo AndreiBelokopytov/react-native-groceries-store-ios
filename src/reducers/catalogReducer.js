@@ -7,12 +7,26 @@ import {
   CATALOG_LOAD_PRODUCTS,
   CATALOG_LOAD_PRODUCTS_FAIL,
   CATALOG_LOAD_PRODUCTS_SUCCESS,
+  CATALOG_LOAD_SEARCH_HISTORY,
+  CATALOG_LOAD_SEARCH_HISTORY_FAIL,
+  CATALOG_LOAD_SEARCH_HISTORY_SUCCESS,
+  CATALOG_LOAD_SEARCH_POPULAR,
+  CATALOG_LOAD_SEARCH_POPULAR_FAIL,
+  CATALOG_LOAD_SEARCH_POPULAR_SUCCESS,
+  CATALOG_SEARCH_PRODUCTS,
+  CATALOG_SEARCH_PRODUCTS_FAIL,
+  CATALOG_SEARCH_PRODUCTS_SUCCESS,
   CATALOG_SELECT_CATEGORY,
   loadCategoriesFail,
   loadCategoriesSuccess,
   loadProducts,
   loadProductsFail,
-  loadProductsSuccess
+  loadProductsSuccess,
+  loadSearchHistorySuccess,
+  loadSearchPopularFail,
+  loadSearchPopularSuccess,
+  searchProductsFail,
+  searchProductsSuccess
 } from "../actions/catalogActions";
 import CategoryRecord from "../immutableTypes/CategoryRecord";
 import ProductRecord from "../immutableTypes/ProductRecord";
@@ -25,7 +39,17 @@ const initialState = {
   loadingCategoriesError: null,
   products: Map(),
   isLoadingProducts: null,
-  loadingProductsError: null
+  loadingProductsError: null,
+  searchPopular: [],
+  isLoadingSearchPopular: null,
+  loadingSearchPopularError: null,
+  search: "",
+  searchHistory: [],
+  isLoadingSearchHistory: null,
+  loadingSearchHistoryError: null,
+  searchResults: [],
+  isSearchingProducts: null,
+  searchingProductsError: null
 };
 
 export default function(state = initialState, action) {
@@ -96,6 +120,80 @@ export default function(state = initialState, action) {
         ...state,
         isLoadingProducts: false,
         loadingProductsError: action.payload.error
+      };
+    case CATALOG_LOAD_SEARCH_POPULAR:
+      return loop(
+        {
+          ...state,
+          isLoadingSearchPopular: true,
+          loadingSearchPopularError: null
+        },
+        Cmd.run(api.getSearchPopular, {
+          successActionCreator: loadSearchPopularSuccess,
+          failActionCreator: loadSearchPopularFail
+        })
+      );
+    case CATALOG_LOAD_SEARCH_POPULAR_SUCCESS:
+      return {
+        ...state,
+        isLoadingSearchPopular: false,
+        searchPopular: action.payload.searchRequests
+      };
+    case CATALOG_LOAD_SEARCH_POPULAR_FAIL:
+      return {
+        ...state,
+        isLoadingSearchPopular: false,
+        loadingSearchPopularError: action.payload.error
+      };
+    case CATALOG_LOAD_SEARCH_HISTORY:
+      return loop(
+        {
+          ...state,
+          isLoadingSearchHistory: true,
+          loadingSearchHistoryError: null
+        },
+        Cmd.run(api.getSearchHistory, {
+          successActionCreator: loadSearchHistorySuccess,
+          failActionCreator: loadSearchPopularFail
+        })
+      );
+    case CATALOG_LOAD_SEARCH_HISTORY_SUCCESS:
+      return {
+        ...state,
+        isLoadingSearchHistory: false,
+        searchHistory: action.payload.searchRequests
+      };
+    case CATALOG_LOAD_SEARCH_HISTORY_FAIL:
+      return {
+        ...state,
+        isLoadingSearchHistory: false,
+        loadingSearchHistoryError: action.payload.error
+      };
+    case CATALOG_SEARCH_PRODUCTS:
+      return loop(
+        {
+          ...state,
+          isSearchingProducts: true,
+          searchingProductsError: null,
+          search: action.payload.search
+        },
+        Cmd.run(api.searchProducts, {
+          args: [action.payload.search],
+          successActionCreator: searchProductsSuccess,
+          failActionCreator: searchProductsFail
+        })
+      );
+    case CATALOG_SEARCH_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        isSearchingProducts: false,
+        searchResults: action.payload.products
+      };
+    case CATALOG_SEARCH_PRODUCTS_FAIL:
+      return {
+        ...state,
+        isSearchingProducts: false,
+        searchingProductsError: action.payload.error
       };
     default:
       return state;

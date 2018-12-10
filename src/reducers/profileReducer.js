@@ -57,7 +57,6 @@ export default function(state = initialState, action) {
         shoppingCart: state.shoppingCart.remove(productId)
       };
     }
-
     default:
       return state;
   }

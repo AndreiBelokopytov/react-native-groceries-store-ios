@@ -2,16 +2,19 @@ import * as React from "react";
 import {
   View,
   StyleSheet,
-  ActivityIndicator,
-  InteractionManager
+  InteractionManager,
+  ActivityIndicator
 } from "react-native";
 import colors from "../../constants/colors";
 import { ProductList } from "../../shared/productList";
 import productListEmpty from "../../shared/productList/ProductListEmpty";
+import { SearchResultsListHeader } from "./SearchResultsListHeader";
 
-const ProductListEmpty = productListEmpty("В избранном пока ничего нет");
+const ProductListEmpty = productListEmpty(
+  "По вашему запросу ничего не найдено"
+);
 
-class Favorites extends React.Component {
+export default class SearchResults extends React.Component {
   state = {
     interactionEnded: false,
     allowVerticalScroll: true
@@ -36,6 +39,7 @@ class Favorites extends React.Component {
           <ProductList
             products={products}
             ListEmptyComponent={ProductListEmpty}
+            ListHeaderComponent={SearchResultsListHeader}
           />
         ) : (
           <View style={styles.loading}>
@@ -57,9 +61,3 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
-Favorites.navigationOptions = {
-  title: "Избранное"
-};
-
-export default Favorites;
