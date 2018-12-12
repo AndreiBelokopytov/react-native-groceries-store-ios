@@ -66,7 +66,7 @@ class Products extends React.Component {
           renderTitle={this.renderToolbarTitle}
         />
         <View style={{ flex: 1 }}>
-          {interactionEnded && products ? (
+          {interactionEnded ? (
             <ProductList
               products={products}
               onScroll={this.onListScroll}
