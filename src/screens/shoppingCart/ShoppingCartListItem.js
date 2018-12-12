@@ -26,15 +26,18 @@ class ShoppingCartListItem extends PureComponent {
             value={count}
             minValue={0}
             maxValue={99}
-            onChange={_count =>
-              this.props.changeCount(product.id, categoryId, _count - count)
-            }
+            onChange={this.onChange}
           />
         </View>
       </View>
     );
   }
-
+  onChange = cnt =>
+    this.props.changeCount(
+      this.props.product.id,
+      this.props.categoryId,
+      cnt - this.props.count
+    );
   renderValue = value => (
     <View style={styles.countContainer}>
       <Text style={styles.countText}>{value}</Text>
