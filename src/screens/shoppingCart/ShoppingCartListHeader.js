@@ -2,6 +2,8 @@ import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import Label from "../../shared/Label";
+import ScreenHeader from "../../shared/ScreenHeader";
+import StyledText from "../../shared/StyledText";
 import pluralize from "../../utils/pluralize";
 import { getShoppingCartCounter } from "../../utils/stateSelectors/shoppingCartSelectors";
 
@@ -16,9 +18,14 @@ class ShoppingCartListHeader extends PureComponent {
   render() {
     const { count } = this.props;
     return (
-      <View style={styles.root}>
-        <Label note text={count + " " + headerText(count)} />
-      </View>
+      <>
+        <ScreenHeader>
+          <StyledText text="Корзина" variant="title1" />
+        </ScreenHeader>
+        <View style={styles.root}>
+          <Label note text={count + " " + headerText(count)} />
+        </View>
+      </>
     );
   }
 }

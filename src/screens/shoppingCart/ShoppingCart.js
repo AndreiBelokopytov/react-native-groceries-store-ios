@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import ShoppingCartIcon from "../../shared/icons/ShoppingCartIcon";
-import ScreenHeader from "../../shared/ScreenHeader";
 import StyledText from "../../shared/StyledText";
 import shoppingCartCounter from "./shoppingCartCounter";
 import tabBarIcon from "../../shared/tabBarIcon";
@@ -22,9 +21,6 @@ export default class ShoppingCart extends Component {
     const { products } = this.props;
     return (
       <SafeAreaView style={styles.root}>
-        <ScreenHeader>
-          <StyledText text="Корзина" variant="title1" />
-        </ScreenHeader>
         {products.length ? (
           <FlatList
             data={products}
