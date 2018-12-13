@@ -1,10 +1,11 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import NumericInput from "../../shared/NumericInput";
 import colors from "../../constants/colors";
 
 class ShoppingCartListItem extends PureComponent {
   render() {
-    const { product } = this.props;
+    const { product, count, categoryId } = this.props;
     return (
       <View style={styles.root}>
         {product.images.length > 0 && (
@@ -16,19 +17,32 @@ class ShoppingCartListItem extends PureComponent {
         <View style={styles.description}>
           <View style={styles.descriptionWrapper}>
             <Text style={styles.productName}>{product.name}</Text>
+            <Text style={styles.currentPrice}>{product.price} ₽</Text>
           </View>
         </View>
         <View style={styles.right}>
-          <View style={styles.productPrice}>
-            {product.price < product.regular_price && (
-              <Text style={styles.oldPrice}>{product.regular_price} ₽</Text>
-            )}
-            <Text style={styles.currentPrice}>{product.price} ₽</Text>
-          </View>
+          <NumericInput
+            renderValue={this.renderValue}
+            value={count}
+            minValue={0}
+            maxValue={99}
+            onChange={this.onChange}
+          />
         </View>
       </View>
     );
   }
+  onChange = cnt =>
+    this.props.changeCount(
+      this.props.product.id,
+      this.props.categoryId,
+      cnt - this.props.count
+    );
+  renderValue = value => (
+    <View style={styles.countContainer}>
+      <Text style={styles.countText}>{value}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -43,7 +57,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 62,
-    height: 62
+    height: 62,
+    borderRadius: 10
   },
   description: {
     flexDirection: "row",
@@ -51,7 +66,7 @@ const styles = StyleSheet.create({
     marginLeft: 12
   },
   descriptionWrapper: {
-    justifyContent: "center"
+    justifyContent: "space-between"
   },
   productName: {
     fontSize: 13,
@@ -67,18 +82,20 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: colors.primary
   },
-  oldPrice: {
-    fontSize: 14,
-    fontWeight: "400",
-    lineHeight: 22,
-    color: colors.textDisabled,
-    textDecorationLine: "line-through",
-    marginRight: 6
+  countContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 30
+  },
+  countText: {
+    fontSize: 24
   },
   right: {
-    flexDirection: "row",
+    height: "100%",
+    width: 100,
     alignItems: "center",
-    marginLeft: 16
+    flexDirection: "row",
+    justifyContent: "center"
   }
 });
 
