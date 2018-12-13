@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text, FlatList } from "react-native";
+import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import ShoppingCartIcon from "../../shared/icons/ShoppingCartIcon";
 import ScreenHeader from "../../shared/ScreenHeader";
 import StyledText from "../../shared/StyledText";
@@ -21,8 +21,10 @@ export default class ShoppingCart extends Component {
   render() {
     const { products } = this.props;
     return (
-      <View style={styles.root}>
-        <ScreenHeader title="Корзина" />
+      <SafeAreaView style={styles.root}>
+        <ScreenHeader>
+          <StyledText text="Корзина" variant="title1" />
+        </ScreenHeader>
         {products.length ? (
           <FlatList
             data={products}
@@ -40,7 +42,7 @@ export default class ShoppingCart extends Component {
             <StyledText text="Корзина пуста" />
           </View>
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 

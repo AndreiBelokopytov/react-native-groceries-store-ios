@@ -9,6 +9,10 @@ class Search extends Component {
     headerBackTitle: "Поиск"
   };
 
+  state = {
+    inputText: ""
+  };
+
   render() {
     const { searchPopular } = this.props;
     return (
