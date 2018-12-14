@@ -5,7 +5,7 @@ import Label from "../../shared/Label";
 import ScreenHeader from "../../shared/ScreenHeader";
 import StyledText from "../../shared/StyledText";
 import pluralize from "../../utils/pluralize";
-import { getShoppingCartCounter } from "../../utils/stateSelectors/shoppingCartSelectors";
+import { getShoppingCartCounter } from "../../stateSelectors/shoppingCartSelectors";
 
 const headerText = pluralize({
   "0": "",

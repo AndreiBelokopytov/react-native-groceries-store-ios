@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 import Label from "../../shared/Label";
 import StyledButton from "../../shared/StyledButton";
-import { getShoppingCartSum } from "../../utils/stateSelectors/shoppingCartSelectors";
+import { getShoppingCartSum } from "../../stateSelectors/shoppingCartSelectors";
 
 class ShoppingCartListFooter extends PureComponent {
   render() {

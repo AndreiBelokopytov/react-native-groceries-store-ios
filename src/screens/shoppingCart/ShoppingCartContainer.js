@@ -3,7 +3,7 @@ import {
   removeFromShoppingCart,
   addToShoppingCart
 } from "../../actions/profileActions";
-import { getProductsInCart } from "../../utils/stateSelectors/shoppingCartSelectors";
+import { getProductsInCart } from "../../stateSelectors/shoppingCartSelectors";
 import ShoppingCart from "./ShoppingCart";
 
 const mapStateToProps = state => {
