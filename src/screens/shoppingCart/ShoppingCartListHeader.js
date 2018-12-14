@@ -22,11 +22,13 @@ class ShoppingCartListHeader extends PureComponent {
         <ScreenHeader>
           <StyledText text="Корзина" variant="title1" />
         </ScreenHeader>
-        <StyledText
-          style={styles.subtitle}
-          note
-          text={count + " " + headerText(count)}
-        />
+        {count !== 0 ? (
+          <StyledText
+            style={styles.subtitle}
+            note
+            text={count + " " + headerText(count)}
+          />
+        ) : null}
       </>
     );
   }

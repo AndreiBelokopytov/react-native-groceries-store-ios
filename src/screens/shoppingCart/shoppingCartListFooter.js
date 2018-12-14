@@ -9,6 +9,9 @@ import { getShoppingCartSum } from "../../stateSelectors/shoppingCartSelectors";
 class ShoppingCartListFooter extends PureComponent {
   render() {
     const { shoppingCartSum, discount, total } = this.props;
+    if (total === 0) {
+      return null;
+    }
     return (
       <View style={styles.root}>
         <View style={styles.orderPrice}>
