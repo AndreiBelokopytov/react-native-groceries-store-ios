@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import Label from "../../shared/Label";
+import colors from "../../constants/colors";
 import ScreenHeader from "../../shared/ScreenHeader";
 import StyledText from "../../shared/StyledText";
 import pluralize from "../../utils/pluralize";
@@ -22,9 +22,11 @@ class ShoppingCartListHeader extends PureComponent {
         <ScreenHeader>
           <StyledText text="Корзина" variant="title1" />
         </ScreenHeader>
-        <View style={styles.root}>
-          <Label note text={count + " " + headerText(count)} />
-        </View>
+        <StyledText
+          style={styles.subtitle}
+          note
+          text={count + " " + headerText(count)}
+        />
       </>
     );
   }
@@ -37,8 +39,10 @@ const mapStateToProps = state => {
 };
 
 const styles = StyleSheet.create({
-  root: {
-    marginLeft: 20
+  subtitle: {
+    marginTop: 12,
+    marginLeft: 20,
+    color: colors.textGray
   }
 });
 
