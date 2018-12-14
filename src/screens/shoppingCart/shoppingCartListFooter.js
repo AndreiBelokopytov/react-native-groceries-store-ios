@@ -32,7 +32,7 @@ class ShoppingCartListFooter extends PureComponent {
         </View>
         <View style={styles.btnOrder}>
           <StyledButton large>
-            <Text>Оформить</Text>
+            <Text>Оформить заказ</Text>
           </StyledButton>
         </View>
       </View>
