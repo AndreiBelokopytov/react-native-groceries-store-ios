@@ -2,8 +2,8 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../../constants/colors";
-import Label from "../../shared/Label";
 import StyledButton from "../../shared/StyledButton";
+import StyledText from "../../shared/StyledText";
 import { getShoppingCartSum } from "../../stateSelectors/shoppingCartSelectors";
 
 class ShoppingCartListFooter extends PureComponent {
@@ -13,11 +13,11 @@ class ShoppingCartListFooter extends PureComponent {
       <View style={styles.root}>
         <View style={styles.orderPrice}>
           <View style={styles.subitem}>
-            <Label note text="Подытог" />
+            <StyledText style={styles.note} text="Подытог" />
             <Text style={styles.price}>{shoppingCartSum} ₽</Text>
           </View>
           <View style={[styles.subitem, styles.subitemMargin]}>
-            <Label note text="Скидка" />
+            <StyledText style={styles.note} text="Скидка" />
             <Text style={styles.price}> {discount} ₽</Text>
           </View>
           <View style={[styles.subitem, styles.summary]}>
@@ -73,6 +73,9 @@ const styles = StyleSheet.create({
   },
   btnOrder: {
     marginBottom: 24
+  },
+  note: {
+    color: colors.textGray
   }
 });
 
