@@ -2,25 +2,22 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../../constants/colors";
+import Label from "../../shared/Label";
 import StyledButton from "../../shared/StyledButton";
-import StyledText from "../../shared/StyledText";
-import { getShoppingCartSum } from "../../stateSelectors/shoppingCartSelectors";
+import { getShoppingCartSum } from "../../utils/stateSelectors/shoppingCartSelectors";
 
 class ShoppingCartListFooter extends PureComponent {
   render() {
     const { shoppingCartSum, discount, total } = this.props;
-    if (total === 0) {
-      return null;
-    }
     return (
       <View style={styles.root}>
         <View style={styles.orderPrice}>
           <View style={styles.subitem}>
-            <StyledText style={styles.note} text="Подытог" />
+            <Label note text="Подытог" />
             <Text style={styles.price}>{shoppingCartSum} ₽</Text>
           </View>
           <View style={[styles.subitem, styles.subitemMargin]}>
-            <StyledText style={styles.note} text="Скидка" />
+            <Label note text="Скидка" />
             <Text style={styles.price}> {discount} ₽</Text>
           </View>
           <View style={[styles.subitem, styles.summary]}>
@@ -32,7 +29,7 @@ class ShoppingCartListFooter extends PureComponent {
         </View>
         <View style={styles.btnOrder}>
           <StyledButton large>
-            <Text>Оформить заказ</Text>
+            <Text>Оформить</Text>
           </StyledButton>
         </View>
       </View>
@@ -76,9 +73,6 @@ const styles = StyleSheet.create({
   },
   btnOrder: {
     marginBottom: 24
-  },
-  note: {
-    color: colors.textGray
   }
 });
 

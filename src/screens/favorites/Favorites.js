@@ -7,9 +7,7 @@ import {
 } from "react-native";
 import colors from "../../constants/colors";
 import { ProductList } from "../../shared/productList";
-import productListEmpty from "../../shared/productList/ProductListEmpty";
-
-const ProductListEmpty = productListEmpty("В избранном пока ничего нет");
+import FavoritesListEmpty from "./FavoritesListEmpty";
 
 class Favorites extends React.Component {
   state = {
@@ -35,7 +33,7 @@ class Favorites extends React.Component {
         {interactionEnded ? (
           <ProductList
             products={products}
-            ListEmptyComponent={ProductListEmpty}
+            ListEmptyComponent={FavoritesListEmpty}
           />
         ) : (
           <View style={styles.loading}>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, Text, FlatList } from "react-native";
 import ShoppingCartIcon from "../../shared/icons/ShoppingCartIcon";
-import productListEmpty from "../../shared/productList/ProductListEmpty";
+import ScreenHeader from "../../shared/ScreenHeader";
+import StyledText from "../../shared/StyledText";
 import shoppingCartCounter from "./shoppingCartCounter";
 import tabBarIcon from "../../shared/tabBarIcon";
 import ShoppingCartItemSeparator from "./ShoppingCartItemSeparator";
@@ -16,27 +17,30 @@ const TabBarIcon = props => {
   return <IconWithBadge {...props} />;
 };
 
-const ShoppingCartEmpty = productListEmpty("Корзина пуста");
-
 export default class ShoppingCart extends Component {
   render() {
     const { products } = this.props;
     return (
-      <SafeAreaView style={styles.root}>
-        <FlatList
-          data={products}
-          keyExtractor={this.productKeyExtractor}
-          renderItem={this.renderListItem}
-          ItemSeparatorComponent={ShoppingCartItemSeparator}
-          ListHeaderComponent={ShoppingCartListHeader}
-          ListFooterComponent={ShoppingCartListFooter}
-          ListEmptyComponent={ShoppingCartEmpty}
-          contentContainerStyle={{
-            flex: products && products.length === 0 ? 1 : 0,
-            paddingTop: 12
-          }}
-        />
-      </SafeAreaView>
+      <View style={styles.root}>
+        <ScreenHeader title="Корзина" />
+        {products.length ? (
+          <FlatList
+            data={products}
+            keyExtractor={this.productKeyExtractor}
+            renderItem={this.renderListItem}
+            ItemSeparatorComponent={ShoppingCartItemSeparator}
+            ListHeaderComponent={ShoppingCartListHeader}
+            ListFooterComponent={ShoppingCartListFooter}
+            contentContainerStyle={{
+              paddingTop: 12
+            }}
+          />
+        ) : (
+          <View style={styles.noItemsContent}>
+            <StyledText text="Корзина пуста" />
+          </View>
+        )}
+      </View>
     );
   }
 

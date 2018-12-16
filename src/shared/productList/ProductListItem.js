@@ -12,6 +12,7 @@ import BookmarkIcon from "../icons/BookmarkIcon";
 import StyledButton from "../StyledButton";
 import StyledText from "../StyledText";
 import SwipeActionButton from "../SwipeActionButton";
+import ImageLoader from "../ImageLoader";
 
 class ProductListItem extends PureComponent {
   render() {
@@ -32,7 +33,7 @@ class ProductListItem extends PureComponent {
         >
           <View style={styles.root}>
             {product.images.length > 0 && (
-              <Image
+              <ImageLoader
                 source={{ uri: product.images[0].url_small }}
                 style={styles.image}
               />
@@ -116,7 +117,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 62,
-    height: 62
+    height: 62,
+    borderRadius: 10
   },
   description: {
     flexDirection: "row",

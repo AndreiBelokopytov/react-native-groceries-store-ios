@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import colors from "../../constants/colors";
 import StyledText from "../../shared/StyledText";
 import navigationService from "../../utils/navigationService";
@@ -29,11 +29,7 @@ class Loading extends React.Component {
     );
   }
 
-  loadData = () => {
-    this.props.loadCategories();
-    this.props.loadSearchPopular();
-    this.props.loadSearchHistory();
-  };
+  loadData = () => this.props.loadCategories();
 }
 
 const styles = StyleSheet.create({

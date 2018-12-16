@@ -24,26 +24,7 @@ async function getProducts(category) {
   return fetch(API_URL + "/products" + params).then(handleResponse);
 }
 
-async function getSearchPopular() {
-  return fetch(API_URL + "/search_popular").then(handleResponse);
-}
-
-async function getSearchHistory() {
-  return fetch(API_URL + "/search_history").then(handleResponse);
-}
-
-async function searchProducts(search) {
-  let params = qs.stringify({
-    search
-  });
-  params = "?" + params;
-  return fetch(API_URL + "/products" + params).then(handleResponse);
-}
-
 export default {
   getCategories,
-  getProducts,
-  searchProducts,
-  getSearchPopular,
-  getSearchHistory
+  getProducts
 };

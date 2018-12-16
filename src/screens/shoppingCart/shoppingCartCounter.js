@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getShoppingCartCounter } from "../../stateSelectors/shoppingCartSelectors";
+import { getShoppingCartCounter } from "../../utils/stateSelectors/shoppingCartSelectors";
 
 function shoppingCartCounter(icon) {
   return connect(mapStateToProps)(icon);

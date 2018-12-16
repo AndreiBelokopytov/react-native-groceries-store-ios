@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getProductsInFavorites } from "../../stateSelectors/catalogSelectors";
+import { getProductsInFavorites } from "../../utils/stateSelectors/catalogSelectors";
 import Favorites from "./Favorites";
 
 const mapStateToProps = state => {
