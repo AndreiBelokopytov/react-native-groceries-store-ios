@@ -16,6 +16,7 @@ import { ProductList } from "../../shared/productList";
 import StyledText from "../../shared/StyledText";
 import pluralize from "../../utils/pluralize";
 import ProductsHeader from "./ProductsHeader";
+import ImageLoader from "../../shared/ImageLoader";
 
 const HEADER_HEIGHT = Header.HEIGHT;
 
@@ -86,7 +87,7 @@ class Products extends React.Component {
     const { category } = this.props;
     return (
       <View {...props}>
-        <Image
+        <ImageLoader
           style={styles.image}
           resizeMode={"cover"}
           source={{ uri: category.image_medium }}

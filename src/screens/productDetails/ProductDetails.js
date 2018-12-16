@@ -14,6 +14,7 @@ import CollapsibleToolbar from "../../shared/CollapsibleToolbar";
 import StyledButton from "../../shared/StyledButton";
 import StyledText from "../../shared/StyledText";
 import ProductDetailsHeader from "./ProductDetailsHeader";
+import ImageLoader from "../../shared/ImageLoader";
 
 const HEADER_HEIGHT = Header.HEIGHT;
 
@@ -79,7 +80,7 @@ class ProductDetails extends Component {
     }
     return (
       <View {...props}>
-        <Image
+        <ImageLoader
           style={styles.image}
           resizeMode={"cover"}
           source={{ uri: product.images[0].url_medium }}

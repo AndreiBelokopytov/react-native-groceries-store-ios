@@ -10,6 +10,7 @@ import colors from "../../constants/colors";
 import ImageGradient from "../../shared/ImageGradient";
 import StyledText from "../../shared/StyledText";
 import pluralize from "../../utils/pluralize";
+import ImageLoader from "../../shared/ImageLoader";
 
 const productsText = pluralize({
   "0": "нет продуктов",
@@ -28,7 +29,10 @@ class CategoryListItem extends PureComponent {
         onPress={this.onPress}
       >
         <View style={styles.container}>
-          <Image source={{ uri: category.image_medium }} style={styles.image} />
+          <ImageLoader
+            source={{ uri: category.image_medium }}
+            style={styles.image}
+          />
           <View style={styles.overlay}>
             <ImageGradient borderRadius={8} />
           </View>

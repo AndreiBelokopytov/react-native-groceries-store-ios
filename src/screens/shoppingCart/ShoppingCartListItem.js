@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import NumericInput from "../../shared/NumericInput";
 import colors from "../../constants/colors";
+import ImageLoader from "../../shared/ImageLoader";
 
 class ShoppingCartListItem extends PureComponent {
   render() {
@@ -9,7 +10,7 @@ class ShoppingCartListItem extends PureComponent {
     return (
       <View style={styles.root}>
         {product.images.length > 0 && (
-          <Image
+          <ImageLoader
             source={{ uri: product.images[0].url_small }}
             style={styles.image}
           />
